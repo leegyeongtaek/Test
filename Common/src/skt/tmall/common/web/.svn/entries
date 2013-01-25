@@ -1,0 +1,71 @@
+10
+
+dir
+155780
+http://172.18.182.24/svn/tmall_was/TownCert/trunk/21.tMallTownCertCommonProject/src/skt/tmall/common/web
+http://172.18.182.24/svn/tmall_was
+
+
+
+2012-04-10T08:38:44.172632Z
+155780
+leegt80
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+729d6a85-9013-47b7-b531-64b74c8990b9
+
+WebDefaultHandler.java
+file
+
+
+
+
+2012-04-06T11:50:38.584000Z
+bd116387490c3884bb64341f014c0a50
+2012-04-10T08:38:44.172632Z
+155780
+leegt80
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2592
+
+resource
+dir
+
+upload
+dir
+
+xml
+dir
+

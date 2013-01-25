@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<aop:aspectj-autoproxy />
+
+	<bean id="systemPointcut" class="com.yuraeltec.common.aop.SystemPointcut" />
+
+	<bean id="databaseServiceAdvice" class="com.yuraeltec.common.aop.DatabaseServiceAdvice"></bean>
+
+	<bean id="webRequestExtractAdvice" class="com.yuraeltec.common.aop.WebRequestExtractAdvice" />
+
+	<!-- process -->
+	<bean id="boardSelect" class="com.yuraeltec.board.model.process.db.BoardSelectProcess" />
+	
+</beans>
