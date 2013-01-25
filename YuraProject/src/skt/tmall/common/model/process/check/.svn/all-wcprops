@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/tmall_was/!svn/ver/167487/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/common/model/process/check
+END
+CheckSendSMS.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/tmall_was/!svn/ver/167487/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/common/model/process/check/CheckSendSMS.java
+END
+CheckSendSMSReject.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/tmall_was/!svn/ver/167487/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/common/model/process/check/CheckSendSMSReject.java
+END

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/tmall_was/!svn/ver/157279/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/security
+END
+CertProcesssingFilterEntryPoint.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/tmall_was/!svn/ver/155760/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/security/CertProcesssingFilterEntryPoint.java
+END
+JdbcDaoOverImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/tmall_was/!svn/ver/157279/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/security/JdbcDaoOverImpl.java
+END
+ReauthenticationImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/tmall_was/!svn/ver/155760/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/security/ReauthenticationImpl.java
+END
+CertBasicProcessingFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/tmall_was/!svn/ver/156511/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/security/CertBasicProcessingFilter.java
+END

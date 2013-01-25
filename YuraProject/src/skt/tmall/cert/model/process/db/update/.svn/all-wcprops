@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/tmall_was/!svn/ver/191847/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/update
+END
+UpdateCertStatusConfirmReject.java
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/tmall_was/!svn/ver/167487/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/update/UpdateCertStatusConfirmReject.java
+END
+UpdateCertPdStockAmount.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/tmall_was/!svn/ver/160699/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/update/UpdateCertPdStockAmount.java
+END
+UpdatePdPrdSelStatCd.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/tmall_was/!svn/ver/160699/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/update/UpdatePdPrdSelStatCd.java
+END
+UpdateCertStatusCancel.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/tmall_was/!svn/ver/191847/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/update/UpdateCertStatusCancel.java
+END
+UpdateDpGnrlDispStockQty.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svn/tmall_was/!svn/ver/161987/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/update/UpdateDpGnrlDispStockQty.java
+END
+UpdateDpGnrlDispSelStatCd.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/tmall_was/!svn/ver/160699/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/update/UpdateDpGnrlDispSelStatCd.java
+END
+UpdateCoopCertStatusCancel.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/tmall_was/!svn/ver/163510/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/update/UpdateCoopCertStatusCancel.java
+END
+UpdateCertManageHist.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/tmall_was/!svn/ver/161987/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/update/UpdateCertManageHist.java
+END
+UpdateCoopCertStatusConfirm.java
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/tmall_was/!svn/ver/161987/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/update/UpdateCoopCertStatusConfirm.java
+END
+UpdateCertStatusConfirm.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/tmall_was/!svn/ver/161987/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/update/UpdateCertStatusConfirm.java
+END

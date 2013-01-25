@@ -1,0 +1,74 @@
+10
+
+dir
+194789
+http://172.18.182.24/svn/tmall_was/TownCert/trunk/22.tMallTownCertProject/webapps/WEB-INF
+http://172.18.182.24/svn/tmall_was
+
+
+
+2012-12-12T04:59:51.030730Z
+193162
+mr_brain
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+729d6a85-9013-47b7-b531-64b74c8990b9
+
+classes
+dir
+
+configuration
+dir
+
+jsp
+dir
+
+lib
+dir
+
+web.xml
+file
+
+
+
+
+2012-05-03T12:25:29.536000Z
+06db921db2ef535ac9846512546e2265
+2012-05-03T12:27:17.450268Z
+159756
+leegt80
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2569
+

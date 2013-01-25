@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="EUC-KR" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="cert">
+
+	<typeAlias alias="cert.SomCertBO" type="skt.tmall.cert.model.bean.SomCertBO" />
+	<typeAlias alias="cert.PdStockBO" type="skt.tmall.cert.model.bean.ProductStockBo" />
+
+	<!-- 인증 상태 완료 처리 -->
+	<update id="cert.update.certStatus.confirm" parameterClass="cert.SomCertBO">
+		/* updateCertDaoMap.xml id="cert.update.certStatus.confirm" 이경택 2012.03.26 */
+		UPDATE sm_cert
+		SET   cert_spot_no = #certSpotNo#,
+			   cert_confirmor = #certConfirmor#,
+		       cert_confirm_ip = #certConfirmIp#,
+		       seller_cert_yn = #sellerCertYn#,
+		       cert_dt = to_date(#certDt#, 'yyyy/mm/dd hh24:mi:ss'),
+		       cert_stat = #certStat#,
+		       sms_send_type = #smsSendType#,
+		       update_no = #updateNo#,
+		       update_dt = to_date(#updateDt#, 'yyyy/mm/dd hh24:mi:ss'),
+		       update_ip = #updateIp#
+		       <isEqual property="prdTypCd" prepend="," compareValue="20">
+		       		ord_prd_stat = '901'
+		       </isEqual>
+		WHERE  cert_no = #certNo#
+		AND shop_no = #shopNo#
+		AND ord_prd_stat IN ('501', '901')
+		AND cert_expr_dt <![CDATA[ >= ]]> SYSDATE
+	</update>
+
+	<!-- 반품거부건에 한하여 인증 상태 완료 처리 -->
+	<update id="cert.update.certStatus.confirmReject" parameterClass="cert.SomCertBO">
+		/* updateCertDaoMap.xml id="cert.update.certStatus.confirm" 이경택 2012.03.26 */
+		UPDATE sm_cert
+		SET   cert_spot_no = #certSpotNo#,
+			   cert_confirmor = #certConfirmor#,
+		       cert_confirm_ip = #certConfirmIp#,
+		       seller_cert_yn = #sellerCertYn#,
+		       cert_dt = to_date(#certDt#, 'yyyy/mm/dd hh24:mi:ss'),
+		       cert_stat = #certStat#,
+		       sms_send_type = #smsSendType#,
+		       update_no = #updateNo#,
+		       update_dt = to_date(#updateDt#, 'yyyy/mm/dd hh24:mi:ss'),
+		       update_ip = #updateIp#
+		       <isEqual property="prdTypCd" prepend="," compareValue="20">
+		       		ord_prd_stat = '901'
+		       </isEqual>
+		       <isNotEqual property="prdTypCd" prepend="," compareValue="20">
+		       		ord_prd_stat = '501'
+		       </isNotEqual>
+		WHERE  cert_no = #certNo#
+		AND shop_no = #shopNo#
+		AND ord_prd_stat IN ('501', '601', '901')
+		AND cert_expr_dt <![CDATA[ >= ]]> SYSDATE
+	</update>
+
+	<!-- 인증 상태 취소 처리 -->
+	<update id="cert.update.certStatus.cancel" parameterClass="cert.SomCertBO">
+		/* updateCertDaoMap.xml id="cert.update.certStatus.cancel" 이경택 2012.03.26 */
+		UPDATE sm_cert
+		SET    cert_spot_no = null,
+		       cert_confirmor = null,
+		       cert_confirm_ip = null,
+		       seller_cert_yn = #sellerCertYn#,
+		       cert_dt = null,
+		       cert_stat = #certStat#,
+		       sms_send_type = #smsSendType#,
+		       update_no = #updateNo#,
+		       update_dt = TO_DATE(#updateDt#, 'yyyy/mm/dd hh24:mi:ss'),
+		       update_ip = #updateIp#
+		WHERE  cert_spot_no = #certSpotNo#
+		AND    prd_no = #prdNo#
+		AND    cert_no = #certNo#
+		AND    cert_stat = '102'
+		AND    ord_prd_stat IN ('501', '601', '901')
+	</update>
+
+	<!-- 외부인증번호 인증 상태 취소 처리 -->
+	<update id="cert.update.external.certStatus.cancel" parameterClass="cert.SomCertBO">
+		/* updateCertDaoMap.xml id="cert.update.external.certStatus.cancel" 이경택 2012.03.26 */
+		UPDATE sm_cert
+		SET    cert_spot_no = null,
+		       cert_confirmor = null,
+		       cert_confirm_ip = null,
+		       seller_cert_yn = #sellerCertYn#,
+		       cert_dt = null,
+		       cert_stat = #certStat#,
+		       sms_send_type = #smsSendType#,
+		       update_no = #updateNo#,
+		       update_dt = TO_DATE(#updateDt#, 'yyyy/mm/dd hh24:mi:ss'),
+		       update_ip = #updateIp#
+		WHERE  cert_spot_no = #certSpotNo#
+		AND    prd_no = #prdNo#
+		AND    cert_no = #certNo#
+		AND    ord_no = #ordNo#
+		AND    ord_prd_seq = #ordPrdSeq#
+		AND    cert_stat = '102'
+		AND    ord_prd_stat IN ('501', '601', '901')
+	</update>
+
+	<!-- 외부 인증번호 엑셀 업로드에 따른 상품 재고 수량 수정 -->
+	<update id="cert.update.certPdStock.amount" parameterClass="cert.PdStockBO">
+		/* updateCertDaoMap.xml id="cert.update.certPdStock.amount" 이경택 2012.03.26 */
+		MERGE INTO PD_STOCK a
+		USING (
+			SELECT COUNT(1) cnt
+			FROM pd_prd a, pd_stock b, sm_cert_mem_type c
+			WHERE a.prd_no = b.prd_no
+			AND a.sel_mnbd_no = c.mem_no
+			AND a.prd_no NOT IN (SELECT prd_no FROM sm_cert WHERE prd_no = #prdNo#)
+			AND a.prd_no = #prdNo#
+			AND c.cert_type = '101'
+			AND b.stck_qty = 0
+			AND b.sel_qty = 0
+		) temp
+		ON (temp.cnt <![CDATA[ >=  ]]> 1 AND a.prd_no = #prdNo#)
+		WHEN MATCHED THEN
+		UPDATE SET stck_qty = #stckQty#, update_dt = SYSDATE, update_no = #updateNo#
+	</update>
+
+	<!-- 외부 인증번호 엑셀 업로드에 따른 상품 판매상태 수정 -->
+	<update id="cert.update.dpGnrlDisp.stockQty" parameterClass="cert.PdStockBO">
+		/* updateCertDaoMap.xml id="cert.update.dpGnrlDisp.stockQty" 이경택 2012.03.26 */
+		UPDATE dp_gnrl_disp
+		SET gnrl_stck_qty = #stckQty#
+		WHERE prd_no = #prdNo#
+	</update>
+
+	<!-- 외부 인증번호 엑셀 업로드에 따른 상품 판매상태 수정 -->
+	<update id="cert.update.pdprdSelStatCd.103" parameterClass="cert.PdStockBO">
+		/* updateCertDaoMap.xml id="cert.update.pdprdSelStatCd.103" 이경택 2012.03.26 */
+		UPDATE pd_prd
+		SET sel_stat_cd = '103', update_dt = SYSDATE, update_no = #updateNo#
+		WHERE prd_no = #prdNo# AND sel_stat_cd = '104'
+	</update>
+
+	<!-- 외부 인증번호 엑셀 업로드에 따른 상품 판매상태 수정 -->
+	<update id="cert.update.dpGnrlDispSelStatCd.103" parameterClass="cert.PdStockBO">
+		/* updateCertDaoMap.xml id="cert.update.dpGnrlDispSelStatCd.103" 이경택 2012.03.26 */
+		UPDATE dp_gnrl_disp
+		SET gnrl_sel_stat_cd = '103', update_dt = SYSDATE, update_no = #updateNo#
+		WHERE prd_no = #prdNo# AND gnrl_sel_stat_cd = '104'
+	</update>
+
+	<!-- 인증 상태 완료 처리 (주문번호, 주문순번) -->
+	<update id="cert.update.coopCertStatus.confirm" parameterClass="cert.SomCertBO">
+		/* updateCertDaoMap.xml id="cert.update.coopCertStatus.confirm" 이경택 2012.03.26 */
+		UPDATE sm_cert
+		SET   cert_no = #certNo#,
+			   cert_spot_no = #certSpotNo#,
+			   cert_confirmor = #certConfirmor#,
+		       cert_confirm_ip = #certConfirmIp#,
+		       seller_cert_yn = #sellerCertYn#,
+		       cert_dt = to_date(#certDt#, 'yyyy/mm/dd hh24:mi:ss'),
+		       cert_stat = #certStat#,
+		       sms_send_type = #smsSendType#,
+		       update_no = #updateNo#,
+		       update_dt = to_date(#updateDt#, 'yyyy/mm/dd hh24:mi:ss'),
+		       update_ip = #updateIp#
+		WHERE  ord_no = #ordNo#
+		AND ord_prd_seq = #ordPrdSeq#
+		AND shop_no = #shopNo#
+		AND ord_prd_stat IN ('501', '901')
+		AND cert_type = '102'
+		AND cert_expr_dt <![CDATA[ >= ]]> SYSDATE
+	</update>
+
+	<!-- 외부 인증번호 인증에 따라 기존 (임시) 내부 인증번호를 실제 외부 인증번호로 수정 -->
+	<update id="cert.update.manage.hist" parameterClass="java.util.HashMap">
+		/* updateCertDaoMap.xml id="cert.update.manage.hist" 이경택 2012.05.14 */
+		UPDATE sm_cert_hist
+		SET cert_no = #certNo#
+		WHERE cert_no = #tempCertNo#
+	</update>
+
+</sqlMap>

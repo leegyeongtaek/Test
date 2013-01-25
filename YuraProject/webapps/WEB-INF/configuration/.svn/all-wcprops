@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/tmall_was/!svn/ver/193162/TownCert/trunk/22.tMallTownCertProject/webapps/WEB-INF/configuration
+END
+skt-database.xml
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/tmall_was/!svn/ver/155760/TownCert/trunk/22.tMallTownCertProject/webapps/WEB-INF/configuration/skt-database.xml
+END
+skt-common-module.xml
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/tmall_was/!svn/ver/167487/TownCert/trunk/22.tMallTownCertProject/webapps/WEB-INF/configuration/skt-common-module.xml
+END
+dispatcher-servlet.xml
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/tmall_was/!svn/ver/193162/TownCert/trunk/22.tMallTownCertProject/webapps/WEB-INF/configuration/dispatcher-servlet.xml
+END
+skt-configuraton.xml
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/tmall_was/!svn/ver/155760/TownCert/trunk/22.tMallTownCertProject/webapps/WEB-INF/configuration/skt-configuraton.xml
+END
+sql-map-config.xml
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/tmall_was/!svn/ver/157279/TownCert/trunk/22.tMallTownCertProject/webapps/WEB-INF/configuration/sql-map-config.xml
+END
+acegiSecurity.properties
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/tmall_was/!svn/ver/156512/TownCert/trunk/22.tMallTownCertProject/webapps/WEB-INF/configuration/acegiSecurity.properties
+END
+skt_tmall.properties
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/tmall_was/!svn/ver/161988/TownCert/trunk/22.tMallTownCertProject/webapps/WEB-INF/configuration/skt_tmall.properties
+END
+skt-acegi.xml
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/tmall_was/!svn/ver/156512/TownCert/trunk/22.tMallTownCertProject/webapps/WEB-INF/configuration/skt-acegi.xml
+END
+skt-cert-module.xml
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/tmall_was/!svn/ver/193162/TownCert/trunk/22.tMallTownCertProject/webapps/WEB-INF/configuration/skt-cert-module.xml
+END

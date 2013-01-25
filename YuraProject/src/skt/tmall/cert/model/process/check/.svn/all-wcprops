@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/tmall_was/!svn/ver/194704/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/check
+END
+CheckCertConfirmPos.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/tmall_was/!svn/ver/161987/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/check/CheckCertConfirmPos.java
+END
+CheckCertCancelPos.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/tmall_was/!svn/ver/161987/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/check/CheckCertCancelPos.java
+END
+CheckCertConfirmImpos.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/tmall_was/!svn/ver/194704/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/check/CheckCertConfirmImpos.java
+END
+CheckCertErrorConfirmImpos.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/tmall_was/!svn/ver/155760/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/check/CheckCertErrorConfirmImpos.java
+END
+CheckCertCancelImpos.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/tmall_was/!svn/ver/161987/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/check/CheckCertCancelImpos.java
+END
+CheckCertNumInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/tmall_was/!svn/ver/157279/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/check/CheckCertNumInfo.java
+END
+CheckUserInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/tmall_was/!svn/ver/156528/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/check/CheckUserInfo.java
+END

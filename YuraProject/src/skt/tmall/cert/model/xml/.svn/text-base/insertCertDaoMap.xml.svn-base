@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="EUC-KR" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="cert">
+	
+	<typeAlias alias="cert.SomCertBO" type="skt.tmall.cert.model.bean.SomCertBO" />
+	<typeAlias alias="cert.PdStockBO" type="skt.tmall.cert.model.bean.ProductStockBo" />
+	
+	<!-- 인증번호 처리에 따른 히스토리 등록 -->
+	<insert id="cert.insert.manage.hist" parameterClass="cert.SomCertBO">
+		/* insertCertDaoMap.xml id="cert.insert.manage.hist" 이경택 2012.03.26 */
+		INSERT
+		INTO   sm_cert_hist (cert_no, hist_apl_dt, cert_spot_no, cert_confirmor, cert_confirm_ip, seller_cert_yn, 
+		       cert_dt, cert_stat, stat_desc, sms_send_type, sms_tel_no, sms_send_times, ord_no, ord_prd_seq, 
+		       ord_prd_stat, buyer_no, buyer_nm, buy_dt, update_no, update_dt, update_ip)
+		SELECT cert_no,
+		       to_date(#histAplDt#, 'yyyy/mm/dd hh24:mi:ss'),
+		       cert_spot_no,
+		       cert_confirmor,
+		       cert_confirm_ip,
+		       seller_cert_yn,
+		       cert_dt,
+		       #certStat#,
+		       #statDesc#,
+		       sms_send_type,
+		       sms_tel_no,
+		       sms_send_times,
+		       ord_no,
+		       ord_prd_seq,
+		       ord_prd_stat,
+		       buyer_no,
+		       buyer_nm,
+		       buy_dt,
+		       update_no,
+		       update_dt,
+		       update_ip
+		FROM   sm_cert
+		WHERE  cert_no = #certNo#
+		and prd_no = #prdNo#
+	</insert>
+	
+	<!-- 인증번호 확인 처리시 에러 및 인증불가에 대한 로그 기록 -->
+	<insert id="cert.insert.confirm.log" parameterClass="cert.SomCertBO">
+		/* insertCertDaoMap.xml id="cert.insert.confirm.log" 이경택 2012.03.26 */
+		INSERT
+		INTO   sm_cert_log (cert_no, cert_stat, cert_spot_no, cert_confirmor, 
+		        cert_confirm_ip,cert_dt, log_code, confirm_log_msg)
+		VALUES (#certNo#,
+		              #certStat#,
+		               #certSpotNo#,
+		               #certConfirmor#,
+		               #certConfirmIp#,
+		               to_date(#certDt#, 'yyyy/mm/dd hh24:mi:ss'),
+		               #logCode#,
+		               #confirmLogMsg#)
+	</insert>
+	
+	<!-- 외부 인증번호 정보 등록 -->
+	<insert id="cert.insert.out.info" parameterClass="cert.SomCertBO">
+		/* insertCertDaoMap.xml id="cert.insert.out.info" 이경택 2012.03.26 */
+		INSERT INTO sm_cert (cert_no, cert_type, prd_no, shop_no, cert_stat, sms_send_type, sms_send_times, cert_expr_dt, create_no, create_dt, create_ip, update_no, update_dt, update_ip)
+		VALUES (#certNo#, #certType#, #prdNo#, #shopNo#, #certStat#, #smsSendType#, 0, TO_DATE(#certExprDt#, 'yyyy/mm/dd hh24:mi:ss'), #createNo#, TO_DATE(#createDt#, 'yyyy/mm/dd hh24:mi:ss'), #createIp#, #updateNo#, TO_DATE(#updateDt#, 'yyyy/mm/dd hh24:mi:ss'), #updateIp#)
+	</insert>
+	
+	<!-- 외부 인증번호 정보 등록 -->
+	<insert id="cert.insert.pdPrdStat.hist" parameterClass="cert.PdStockBO">
+		/* insertCertDaoMap.xml id="cert.insert.pdPrdStat.hist" 이경택 2012.03.26 */
+		INSERT INTO pd_prd_stat_hist (prd_no, apl_end_dt, apl_bgn_dt, prd_stat_cd, stat_chg_rsn, sel_mthd_cd, create_dt, create_no, update_dt, update_no, svc_area_cd)
+		SELECT /*+ INDEX_DESC(pd_prd_stat_hist PK_PD_PRD_STAT_HIST) */
+				prd_no, apl_end_dt, SYSDATE, '103', '외부인증번호에 따른 재고수량 수정', sel_mthd_cd, create_dt, create_no, SYSDATE, #updateNo#, svc_area_cd
+		FROM pd_prd_stat_hist
+		WHERE prd_no = #prdNo#
+		AND ROWNUM = 1
+	</insert>
+
+</sqlMap>

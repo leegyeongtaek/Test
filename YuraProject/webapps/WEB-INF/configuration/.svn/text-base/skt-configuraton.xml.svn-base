@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<!-- properties configurer -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>/WEB-INF/configuration/acegiSecurity.properties</value>
+                <value>/WEB-INF/configuration/skt_tmall.properties</value>
+            </list>
+        </property>
+    </bean>
+    
+    <!-- AOP -->
+    <aop:aspectj-autoproxy />
+    
+    <bean id="systemPointcut" class="skt.tmall.common.aop.SystemPointcut" />
+    
+    <bean id="databaseExceptionAdvice" class="skt.tmall.common.aop.DatabaseExceptionAdvice">
+		<property name="systemName" value="${system.name}"/>
+	</bean>
+	
+    <bean id="controlExceptionAdvice" class="skt.tmall.common.aop.ControlExceptionAdvice">
+		<property name="systemName" value="${system.name}"/>
+	</bean>
+	
+	<bean id="databaseServiceAdvice" class="skt.tmall.common.aop.DatabaseServiceAdvice">
+		<property name="jdbcTemplateManager" ref="jdbcTemplateManager" />
+		<property name="sqlProvider" ref="sqlProvider" />
+		<property name="selectWrapper" ref="selectWrapper" />
+		<property name="selectDynamic" ref="selectDynamic" />
+	</bean>
+	
+	<bean id="ibatisDatabaseServiceAdvice" class="skt.tmall.common.aop.IbatisDatabaseServiceAdvice">
+		<property name="sqlMapClientTemplateManager" ref="sqlMapClientTemplateManager" />
+	</bean>
+	
+	<bean id="groupServiceAdvice" class="skt.tmall.common.aop.GroupServiceAdvice">
+		<property name="transactionTemplateManager" ref="transactionTemplateManager" />
+		<property name="realPath" value="${repository.realdir}" />
+		<property name="tempPath" value="${repository.tempdir}" />
+	</bean>
+	
+    <bean id="webRequestExtractAdvice" class="skt.tmall.common.aop.WebRequestExtractAdvice">
+    	<property name="reAuthentication" ref="reAuthenticationImpl"/>
+    </bean>
+    
+    <bean id="selectDynamic" class="skt.tmall.common.db.SelectDynamicQueryImpl" />
+	
+	<bean id="selectWrapper" class="skt.tmall.common.db.OracleSelectWrapper" />
+	
+	<!-- security -->
+	<bean id="reAuthenticationImpl" class="skt.tmall.security.ReauthenticationImpl" />
+
+</beans>

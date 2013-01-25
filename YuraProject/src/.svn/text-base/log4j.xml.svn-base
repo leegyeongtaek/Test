@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+	
+	<!-- File 용 Appender 설정 -->
+	<appender name="FILELOG" class="skt.tmall.common.log.TmallDailyLogAppender">
+		<param name="Directory" value="/log/app/tcServer1"/>
+		<param name="Prefix" value="tc_"/>
+		<param name="Suffix" value=".log"/>
+		<param name="DatePattern" value="yyyy-MM-dd"/>
+		<param name="WasInstanceKey" value="weblogic.Name"/>
+		<param name="Threshold" value="WARN" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d] %-5p %l - %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- Console 용 Appender 설정 -->
+	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="WARN" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] (%F:%L) %m%n" />
+		</layout>
+	</appender>
+
+	<!-- SQLMAP-Query 로그 -->
+	<logger name="java.sql" additivity="false">
+		<level value="WARN" />
+		<appender-ref ref="FILELOG" />
+<!-- 	<appender-ref ref="TMALL_SQLMAP_QUERY_LOG" /> -->
+	</logger>
+
+	<!-- SQLMAP-자체 로그 -->
+	<logger name="com.ibatis" additivity="false">
+		<level value="WARN" />
+		<appender-ref ref="FILELOG" />
+<!-- 		<appender-ref ref="TMALL_SQLMAP_LOG" /> -->
+	</logger>
+
+	<!-- 기본 로그 -->
+	<logger name="skt.tmall" additivity="false">
+		<level value="WARN" />
+		<appender-ref ref="FILELOG" />
+<!-- 		<appender-ref ref="TMALL_LOG" /> -->
+	</logger>
+
+	<root>
+		<level value="WARN" />
+		<appender-ref ref="FILELOG" />
+	</root>
+
+</log4j:configuration>

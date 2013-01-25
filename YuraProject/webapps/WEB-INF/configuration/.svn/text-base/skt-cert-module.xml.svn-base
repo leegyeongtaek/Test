@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+	<!-- business -->
+	
+	<!-- delegate -->
+	<!-- select delegate -->
+	<bean id="cert.selectDelegate" class="skt.tmall.cert.model.web.control.SelectDelegate" />
+	<bean id="cert.selectAPIDelegate" class="skt.tmall.cert.model.web.control.SelectAPIDelegate" />
+	<!-- update delegate -->
+	<bean id="cert.updateDelegate" class="skt.tmall.cert.model.web.control.UpdateDelegate" />
+	<bean id="cert.updateApiDelegate" class="skt.tmall.cert.model.web.control.UpdateAPIDelegate" />
+	<!-- insert delegate -->
+	<bean id="cert.insertDelegate" class="skt.tmall.cert.model.web.control.InsertDelegate" />
+	
+	<!-- checkable -->
+	<!-- 사용자 정보 조회 checkable -->
+	<bean id="cert.CheckUserInfo" class="skt.tmall.cert.model.process.check.CheckUserInfo" />
+	<!-- 인증번호 확인 가능 checkable -->
+	<bean id="cert.CheckCertConfirmPos" class="skt.tmall.cert.model.process.check.CheckCertConfirmPos" />
+	<!-- 인증번호 확인 불가능 checkable -->
+	<bean id="cert.CheckCertConfirmImpos" class="skt.tmall.cert.model.process.check.CheckCertConfirmImpos" />
+	<!-- 인증번호 확인 불가능 checkable -->
+	<bean id="cert.CheckCertErrorConfirmImpos" class="skt.tmall.cert.model.process.check.CheckCertErrorConfirmImpos" />
+	<!-- 인증번호 취소 히스토리 가능 checkable -->
+	<bean id="cert.CheckCertCancelPos" class="skt.tmall.cert.model.process.check.CheckCertCancelPos" />
+	<!-- 인증번호 취소 불가능 checkable -->
+	<bean id="cert.CheckCertCancelImpos" class="skt.tmall.cert.model.process.check.CheckCertCancelImpos" />
+	<!-- 인증번호 확인시 인증정보 checkable -->
+	<bean id="cert.CheckCertNumInfo" class="skt.tmall.cert.model.process.check.CheckCertNumInfo" />
+	
+	
+	<!-- announcement list processGroup -->
+	<!-- 1-1. 인증번호 확인 processGroup -->
+	<bean id="processGroup.cert.certNumConfirm1" class="skt.tmall.common.model.process.UnAssociatedProcessGroup">
+		<property name="processList">
+			<list>
+				<ref bean="cert.select.selectConfirmerInfo" />
+				<ref bean="processGroup.cert.certNumConfirm2" />
+				<ref bean="cert.insert.insertCertConfirmLog2" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 1-2. 인증번호 확인 processGroup -->
+	<bean id="processGroup.cert.certNumConfirm2" class="skt.tmall.common.model.process.TransactionalProcessGroup">
+		<property name="processList">
+			<list>
+				<ref bean="cert.select.selectCertNumPrdNoInfo" />
+				<ref bean="cert.select.selectCertNumConfirm" />
+				<ref bean="cert.select.selectCertNumConfirmReject" />
+				<ref bean="processGroup.cert.certConfirmPos" />
+				<ref bean="cert.insert.insertCertConfirmLog1" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 1-3. 인증번호 확인 가능 processGroup -->
+	<bean id="processGroup.cert.certConfirmPos" class="skt.tmall.common.model.process.TransactionalProcessGroup">
+		<property  name="checkable" ref="cert.CheckCertConfirmPos" />
+		<property name="processList">
+			<list>
+				<ref bean="processGroup.cert.smsSend" />
+				<ref bean="cert.update.updateCertStatusConfirm" />
+				<ref bean="cert.update.updateCertStatusConfirmReject" />
+				<ref bean="cert.insert.insertCertManageHist" />
+				<ref bean="cert.select.selectCertNumInfo1" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 2-1. COOP 인증번호 확인 processGroup -->
+	<bean id="processGroup.cert.coopCertNumConfirm1" class="skt.tmall.common.model.process.UnAssociatedProcessGroup">
+		<property name="processList">
+			<list>
+				<ref bean="cert.select.selectExternalConfirmerInfo" />
+				<ref bean="processGroup.cert.coopCertNumConfirm2" />
+				<ref bean="cert.insert.insertCertConfirmLog2" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 2-2.  COOP 인증번호 확인 processGroup -->
+	<bean id="processGroup.cert.coopCertNumConfirm2" class="skt.tmall.common.model.process.TransactionalProcessGroup">
+		<property name="processList">
+			<list>
+				<ref bean="cert.select.coopSelectCertNumPrdNoInfo" />
+				<ref bean="cert.select.coopSelectCertNumConfirm" />
+				<ref bean="processGroup.cert.coopCertConfirmPos" />
+				<ref bean="cert.insert.insertCertConfirmLog1" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 2-3.  COOP 인증번호 확인 가능 processGroup -->
+	<bean id="processGroup.cert.coopCertConfirmPos" class="skt.tmall.common.model.process.TransactionalProcessGroup">
+		<property  name="checkable" ref="cert.CheckCertConfirmPos" />
+		<property name="processList">
+			<list>
+				<ref bean="cert.update.coopUpdateCertStatusConfirm" />
+				<ref bean="cert.update.updateCertManageHist" />
+				<ref bean="cert.insert.insertCertManageHist" />
+				<ref bean="cert.select.selectCertNumInfo1" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 3-1. 인증번호 취소 processGroup -->
+	<bean id="processGroup.cert.certNumCancel1" class="skt.tmall.common.model.process.UnAssociatedProcessGroup">
+		<property name="processList">
+			<list>
+				<ref bean="cert.select.selectConfirmerInfo" />
+				<ref bean="processGroup.cert.certNumCancel2" />
+				<ref bean="cert.insert.insertCertConfirmLog2" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 3-2. 인증번호 취소 processGroup -->
+	<bean id="processGroup.cert.certNumCancel2" class="skt.tmall.common.model.process.TransactionalProcessGroup">
+		<property name="processList">
+			<list>
+				<ref bean="cert.select.selectCertNumPrdNoInfo" />
+				<ref bean="cert.update.updateCertStatusCancel" />
+				<ref bean="cert.select.selectCertNumInfo2" />
+				<ref bean="processGroup.cert.certNumCancel3" />
+				<ref bean="cert.insert.insertCertConfirmLog3" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 3-3. 인증번호 취소 processGroup -->
+	<bean id="processGroup.cert.certNumCancel3" class="skt.tmall.common.model.process.TransactionalProcessGroup">
+		<property  name="checkable" ref="cert.CheckCertCancelPos" />
+		<property name="processList">
+			<list>
+				<ref bean="processGroup.cert.smsSend" />
+				<ref bean="cert.insert.InsertCertManageBatchHist" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 4-1. 외부 인증번호 취소 processGroup -->
+	<bean id="processGroup.cert.coopCertNumCancel1" class="skt.tmall.common.model.process.UnAssociatedProcessGroup">
+		<property name="processList">
+			<list>
+				<ref bean="cert.select.selectExternalConfirmerInfo" />
+				<ref bean="processGroup.cert.coopCertNumCancel2" />
+				<ref bean="cert.insert.insertCertConfirmLog2" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 4-2. 외부 인증번호 취소 processGroup -->
+	<bean id="processGroup.cert.coopCertNumCancel2" class="skt.tmall.common.model.process.TransactionalProcessGroup">
+		<property name="processList">
+			<list>
+				<ref bean="cert.select.coopSelectCertNumPrdNoInfo" />
+				<ref bean="cert.update.coopUpdateCertStatusCancel" />
+				<ref bean="cert.select.selectCertNumInfo2" />
+				<ref bean="processGroup.cert.coopCertNumCancel3" />
+				<ref bean="cert.insert.insertCertConfirmLog3" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 4-3. 외부 인증번호 취소 processGroup -->
+	<bean id="processGroup.cert.coopCertNumCancel3" class="skt.tmall.common.model.process.TransactionalProcessGroup">
+		<property  name="checkable" ref="cert.CheckCertCancelPos" />
+		<property name="processList">
+			<list>
+				<ref bean="cert.insert.InsertExternalCertManageBatchHist" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 5. 엑셀 외부인증번호 등록 processGroup -->
+	<bean id="processGroup.cert.regOutCertInfo" class="skt.tmall.common.model.process.TransactionalProcessGroup">
+		<property name="processList">
+			<list>
+				<ref bean="cert.select.selectOutCertNumInfo" />
+				<ref bean="cert.update.updateCertPdStockAmount" />
+				<ref bean="cert.update.updateDpGnrlDispStockQty" />
+				<ref bean="cert.update.updatePdPrdSelStatCd" />
+				<ref bean="cert.update.updateDpGnrlDispSelStatCd" />
+				<ref bean="cert.insert.insertPdPrdStatHist" />
+				<ref bean="cert.insert.insertOutCertInfoBatch" />
+				<ref bean="cert.insert.insertOutCertInfoBatchHist" />
+				<ref bean="cert.select.selectProductInfo" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- API로 내부 인증번호 상태조회 -->
+	<bean id="cert.select.selectCertNumStat" class="skt.tmall.cert.model.process.db.select.SelectCertNumStat">
+	</bean>
+	
+	<!-- process -->
+	<!-- 사용자 정보 조회 -->
+	<bean id="cert.select.selectUserInfo" class="skt.tmall.cert.model.process.db.select.SelectUserInfo">
+		<property  name="checkable" ref="cert.CheckUserInfo" />
+	</bean>
+	
+	<!-- API로 내부 인증번호 확인/취소요청 지점, 사용자 정보 조회 -->
+	<bean id="cert.select.selectConfirmerInfo" class="skt.tmall.cert.model.process.db.select.SelectConfirmerInfo">
+		<property  name="checkable" ref="cert.CheckUserInfo" />
+	</bean>
+	
+	<!-- API로 외부 인증번호 확인/취소요청 지점, 사용자 정보 조회 -->
+	<bean id="cert.select.selectExternalConfirmerInfo" class="skt.tmall.cert.model.process.db.select.SelectExternalConfirmerInfo">
+		<property  name="checkable" ref="cert.CheckUserInfo" />
+	</bean>
+	
+	<!-- 인증 처리 가능 여부 조회 -->
+	<bean id="cert.select.selectCertNumConfirm" class="skt.tmall.cert.model.process.db.select.SelectCertNumConfirm" />
+	
+	<!-- 반품거부건에 한해 인증 처리 가능 여부 조회 -->
+	<bean id="cert.select.selectCertNumConfirmReject" class="skt.tmall.cert.model.process.db.select.SelectCertNumConfirmReject" />
+	
+	<!-- 인증완료시 해당 인증번호 정보 조회 -->
+	<bean id="cert.select.selectCertNumInfo1" class="skt.tmall.cert.model.process.db.select.SelectCertNumInfo">
+		<property  name="checkable" ref="cert.CheckCertNumInfo" />
+	</bean>
+	
+	<!-- 인증취소시 해당 인증번호 정보 조회 -->
+	<bean id="cert.select.selectCertNumInfo2" class="skt.tmall.cert.model.process.db.select.SelectCertNumInfo" />
+	
+	<!-- 인증 상태 완료 처리 -->
+	<bean id="cert.update.updateCertStatusConfirm" class="skt.tmall.cert.model.process.db.update.UpdateCertStatusConfirm">
+		<property name="checkable" ref="cert.CheckSendSMS" />
+	</bean>
+	
+	<!-- 반품거부건에 한해 인증 상태 완료 처리 -->
+	<bean id="cert.update.updateCertStatusConfirmReject" class="skt.tmall.cert.model.process.db.update.UpdateCertStatusConfirmReject">
+		<property name="checkable" ref="cert.CheckSendSMSReject" />
+	</bean>
+	
+	<!-- 인증번호 처리에 따른 히스토리 등록 -->
+	<bean id="cert.insert.insertCertManageHist" class="skt.tmall.cert.model.process.db.insert.InsertCertManageHist" />
+	
+	<!-- 인증번호 확인 불가능에 따른 인증불가에 대한 로그 기록 -->
+	<bean id="cert.insert.insertCertConfirmLog1" class="skt.tmall.cert.model.process.db.insert.InsertCertConfirmLog">
+		<property  name="checkable" ref="cert.CheckCertConfirmImpos" />
+	</bean>
+	
+	<!-- 인증번호 확인시 에러 발생에 따른 인증불가에 대한 로그 기록 -->
+	<bean id="cert.insert.insertCertConfirmLog2" class="skt.tmall.cert.model.process.db.insert.InsertCertConfirmLog">
+		<property  name="checkable" ref="cert.CheckCertErrorConfirmImpos" />
+	</bean>
+	
+	<!-- 바로인증 조회 페이지에서 최근 인증처리한 5건 조회 -->
+	<bean id="cert.select.selectNowCertSearch" class="skt.tmall.cert.model.process.db.select.SelectNowCertSearch" />
+	
+	<!-- 조회인증 조회 페이지에서 이름&전화번호 뒤 4자리로 조회 or 인증번호로 조회 -->
+	<bean id="cert.select.selectSearchCertSearch" class="skt.tmall.cert.model.process.db.select.SelectSearchCertSearch" />
+	
+	<!-- 인증 상태 취소 처리 -->
+	<bean id="cert.update.updateCertStatusCancel" class="skt.tmall.cert.model.process.db.update.UpdateCertStatusCancel" />
+	
+	<!-- 외부 인증 상태 취소 처리 -->
+	<bean id="cert.update.coopUpdateCertStatusCancel" class="skt.tmall.cert.model.process.db.update.UpdateCoopCertStatusCancel" />
+	
+	<!-- 인증 상태 취소 처리에 따른 히스토리 등록 -->
+	<bean id="cert.insert.InsertCertManageBatchHist" class="skt.tmall.cert.model.process.db.insert.InsertCertManageBatchHist">
+		<property name="checkable" ref="cert.CheckSendSMS" />
+	</bean>
+	
+	<!-- 인증 상태 취소 처리에 따른 히스토리 등록 -->
+	<bean id="cert.insert.InsertExternalCertManageBatchHist" class="skt.tmall.cert.model.process.db.insert.InsertCertManageBatchHist" />
+	
+	<!-- 인증번호 취소 불가능에 따른 인증취소불가에 대한 로그 기록 -->
+	<bean id="cert.insert.insertCertConfirmLog3" class="skt.tmall.cert.model.process.db.insert.InsertCertConfirmLog">
+		<property  name="checkable" ref="cert.CheckCertCancelImpos" />
+	</bean>
+	
+	<!--  BO 인증관리 조회 -->
+	<bean id="cert.select.selectManageCertSearch" class="skt.tmall.cert.model.process.db.select.SelectManageCertSearch" />
+	
+	<!--  BO 인증번호 내역 히스토리 조회 -->
+	<bean id="cert.select.selectCertNoHistory" class="skt.tmall.cert.model.process.db.select.SelectCertNoHistory" />
+	
+	<!-- 상품별 외부 인증번호 정보 조회 -->
+	<bean id="cert.select.selectOutCertNumInfo" class="skt.tmall.cert.model.process.db.select.SelectOutCertNumInfo" />
+	
+	<!-- 외부 인증번호 엑셀 업로드에 따른 상품 재고 수량 수정 -->
+	<bean id="cert.update.updateCertPdStockAmount" class="skt.tmall.cert.model.process.db.update.UpdateCertPdStockAmount" />
+	
+	<!-- 외부 인증번호 정보 등록 -->
+	<bean id="cert.insert.insertOutCertInfoBatch" class="skt.tmall.cert.model.process.db.insert.InsertOutCertInfoBatch" />
+	
+	<!-- 외부 인증번호 히스토리 정보 등록 -->
+	<bean id="cert.insert.insertOutCertInfoBatchHist" class="skt.tmall.cert.model.process.db.insert.InsertOutCertInfoBatchHist" />
+	
+	<!-- 미인증 상품 내역 조회 -->
+	<bean id="cert.select.selectNonCertInfo" class="skt.tmall.cert.model.process.db.select.SelectNonCertInfo" />
+	
+	<!-- 해당 인증번호, 지점에 해당하는 상품번호 정보 조회 -->
+	<bean id="cert.select.selectCertNumPrdNoInfo" class="skt.tmall.cert.model.process.db.select.SelectCertNumPrdNoInfo" />
+	
+	<!-- 외부 인증번호 엑셀 업로드에 따른 상품 총재고수량 수정 -->
+	<bean id="cert.update.updateDpGnrlDispStockQty" class="skt.tmall.cert.model.process.db.update.UpdateDpGnrlDispStockQty" />
+	
+	<!-- 외부 인증번호 엑셀 업로드에 따른 상품 판매상태 수정 -->
+	<bean id="cert.update.updatePdPrdSelStatCd" class="skt.tmall.cert.model.process.db.update.UpdatePdPrdSelStatCd" />
+	
+	<!-- 외부 인증번호 엑셀 업로드에 따른 상품 판매상태 수정 -->
+	<bean id="cert.update.updateDpGnrlDispSelStatCd" class="skt.tmall.cert.model.process.db.update.UpdateDpGnrlDispSelStatCd" />
+	
+	<!-- 외부 인증번호 엑셀 업로드에 따른 상품 판매상태 히스토리 등록 -->
+	<bean id="cert.insert.insertPdPrdStatHist" class="skt.tmall.cert.model.process.db.insert.InsertPdPrdStatHist" />
+	
+	<!-- 상품 정보 조회 -->
+	<bean id="cert.select.selectProductInfo" class="skt.tmall.cert.model.process.db.select.SelectProductInfo" />
+	
+	<!-- 해당 주문번호, 주문순번, 지점에 해당하는 상품번호 정보 조회 -->
+	<bean id="cert.select.coopSelectCertNumPrdNoInfo" class="skt.tmall.cert.model.process.db.select.SelectCoopCertNumPrdNoInfo" />
+	
+	<!-- 인증 처리 가능 여부 조회 (주문번호, 주문순번으로 확인)  -->
+	<bean id="cert.select.coopSelectCertNumConfirm" class="skt.tmall.cert.model.process.db.select.SelectCoopCertNumConfirm" />
+	
+	<!-- 인증 상태 완료 처리 (해당 주문번호, 주문순번) -->
+	<bean id="cert.update.coopUpdateCertStatusConfirm" class="skt.tmall.cert.model.process.db.update.UpdateCoopCertStatusConfirm" />
+	
+	<!-- 인증 상태 완료 처리 (해당 주문번호, 주문순번) -->
+	<bean id="cert.update.updateCertManageHist" class="skt.tmall.cert.model.process.db.update.UpdateCertManageHist" />
+	
+	<!-- 모바일 인증내역 조회 페이지에서 이름&전화번호 뒤 4자리로 조회 or 인증번호 or 인증처리기간으로 조회 -->
+	<bean id="cert.select.selectBreakdownCertSearch" class="skt.tmall.cert.model.process.db.select.SelectBreakdownCertSearch" />
+		
+</beans>

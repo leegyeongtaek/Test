@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="22.tMallTownCertProject">
+        <wb-resource deploy-path="/" source-path="/webapps" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="21.tMallTownCertCommonProject.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/21.tMallTownCertCommonProject/21.tMallTownCertCommonProject">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="22.tMallTownCertProject"/>
+        <property name="java-output-path" value="/22.tMallTownCertProject/build/classes"/>
+    </wb-module>
+</project-modules>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="EUC-KR" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="common">
+	
+	<!-- SMS 발송 데이터 등록 -->
+	<insert id="cert.insert.sms.message" parameterClass="skt.tmall.bdt.transfer.sms.SmsRequestBO">
+		/* insertCertDaoMap.xml id="cert.insert.sms.message" 이경택 2012.03.26 */
+		INSERT INTO MESSAGE
+       	(msgid, msgmemid, adminid, msgheadertype, msgreservetype,
+        msgreservename, msgsendto, msgtitle, msgsenddate,
+        msgsendlimitdate, msgcontentfilepath, msgtobelog, seq,
+        callback, start_date,
+        start_time,
+        end_date,
+        end_time, msgstatus, teleinfo, msgsubid, tid
+       	)
+  	 	VALUES (seqmsgid.NEXTVAL, 1, 'admin', '7', '7',
+        '[11번', #cellPhoneNum#, #campaign#,
+        <isNotEmpty property="reserveStartTime">
+        	to_date(#reserveStartTime#, 'yyyy/mm/dd hh24:mi:ss'), 
+        	to_date(#reserveStartTime#, 'yyyy/mm/dd hh24:mi:ss') + (1 / 12), 
+        </isNotEmpty>
+        <isEmpty property="reserveStartTime"> 
+        	SYSDATE, SYSDATE + (1 / 12), 
+        </isEmpty>
+        #message#, '7', seqmsgid.NEXTVAL,
+        #callback#,
+        <isNotEmpty property="reserveStartTime"> 
+	        TO_CHAR (to_date(#reserveStartTime#, 'yyyy/mm/dd hh24:mi:ss'), 'yyyymmdd'),
+	        TO_CHAR (to_date(#reserveStartTime#, 'yyyy/mm/dd hh24:mi:ss'), 'hh24mi'),
+	        TO_CHAR (to_date(#reserveStartTime#, 'yyyy/mm/dd hh24:mi:ss') + (1 / 12), 'yyyymmdd'),
+	        TO_CHAR (to_date(#reserveStartTime#, 'yyyy/mm/dd hh24:mi:ss') + (1 / 12), 'hh24mi'), 
+        </isNotEmpty>
+        <isEmpty property="reserveStartTime"> 
+	        TO_CHAR (SYSDATE, 'yyyymmdd'),
+	        TO_CHAR (SYSDATE, 'hh24mi'),
+	        TO_CHAR (SYSDATE + (1 / 12), 'yyyymmdd'),
+	        TO_CHAR (SYSDATE + (1 / 12), 'hh24mi'), 
+        </isEmpty>
+        '6', 'SK', 0, #templateId#
+       	)
+	</insert>
+
+</sqlMap>

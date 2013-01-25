@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="EUC-KR" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="common">
+	
+	<!-- SMS 메세지 템플릿 검색 -->
+	<select id="cert.select.template.smsmsg" resultClass="java.util.HashMap" parameterClass="int">
+		/* selectCertDaoMap.xml id="cert.select.template.smsmsg"" 이경택 2012.03.28 */
+		SELECT PARAMCNT "paramcnt", TNAME "tname" FROM TEMPLATEMASTER WHERE TID = #templateId# and TYPE = 'S' AND MIMETYPE = 'T'
+	</select>
+
+</sqlMap>

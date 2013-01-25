@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/tmall_was/!svn/ver/162802/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/insert
+END
+InsertPdPrdStatHist.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/tmall_was/!svn/ver/160699/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/insert/InsertPdPrdStatHist.java
+END
+InsertCertManageBatchHist.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/tmall_was/!svn/ver/162749/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/insert/InsertCertManageBatchHist.java
+END
+InsertOutCertInfoBatchHist.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/tmall_was/!svn/ver/157279/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/insert/InsertOutCertInfoBatchHist.java
+END
+InsertCertManageHist.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/tmall_was/!svn/ver/162802/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/insert/InsertCertManageHist.java
+END
+InsertOutCertInfoBatch.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/tmall_was/!svn/ver/157279/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/insert/InsertOutCertInfoBatch.java
+END
+InsertCertConfirmLog.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/tmall_was/!svn/ver/157933/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/insert/InsertCertConfirmLog.java
+END

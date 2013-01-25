@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="EUC-KR" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="cert">
+
+	<typeAlias alias="cert.SomCertBO" 		type="skt.tmall.cert.model.bean.SomCertBO" />
+	<typeAlias alias="cert.ProductCertBo" 	type="skt.tmall.cert.model.bean.ProductCertBo" />
+	<typeAlias alias="cert.ProductBO" 		type="skt.tmall.cert.model.bean.ProductBo" />
+	<typeAlias alias="cert.SomCertApiBO" 	type="skt.tmall.cert.model.bean.SomCertApiBO" />
+
+	<resultMap id="certConfirmResult" class="cert.SomCertBO">
+    	<result property="certYn" 			column="certYn"/>
+    	<result property="prdNo" 			column="prdNo"/>
+        <result property="prdNm" 			column="prdNm"/>
+        <result property="shopNo" 			column="shopNo"/>
+        <result property="certStat" 		column="certStat"/>
+        <result property="ordPrdStat" 		column="ordPrdStat"/>
+        <result property="isCertDeadLine" 	column="isCertDeadLine"/>
+        <result property="smsTelNo" 		column="sms_tel_no"/>
+        <result property="sendSMSTime" 		column="sendSMSTime"/>
+        <result property="shopNm" 			column="shop_nm"/>
+    </resultMap>
+
+	<resultMap id="certInfoResult" class="cert.SomCertBO">
+    	<result property="confirmYn"	 	column="confirmYn"/>
+    	<result property="cancelYn" 		column="cancelYn"/>
+        <result property="certNo" 			column="cert_no"/>
+        <result property="certStat" 		column="cert_stat"/>
+        <result property="certDt" 			column="cert_dt"/>
+        <result property="smsTelNo" 		column="sms_tel_no"/>
+        <result property="sendSMSTime" 		column="sendSMSTime"/>
+        <result property="prdNo" 			column="prd_no"/>
+        <result property="prdNm" 			column="prd_nm"/>
+        <result property="shopNm" 			column="shop_nm"/>
+        <result property="isCertDeadLine" 	column="isCertDeadLine"/>
+		<result property="sellerPrdCd" 		column="seller_prd_cd" nullValue="" />
+    </resultMap>
+
+	<resultMap id="nowcertSearchResult" class="cert.SomCertBO">
+    	<result property="shopNo" 			column="shop_no"/>
+    	<result property="shopNm" 			column="shop_nm"/>
+        <result property="shopBranchNo" 	column="shop_branch_no"/>
+        <result property="shopBranchNm" 	column="shop_branch_nm"/>
+        <result property="prdNo" 			column="prd_no"/>
+        <result property="prdNm" 			column="prd_nm"/>
+        <result property="buyerNm" 			column="buyer_nm"/>
+        <result property="certStat" 		column="cert_stat"/>
+        <result property="cancelYn" 		column="cancelYn"/>
+        <result property="certDt" 			column="cert_dt"/>
+        <result property="certNo" 			column="cert_no"/>
+        <result property="smsTelNo" 		column="sms_tel_no"/>
+        <result property="rnk" 				column="rnk"/>
+        <result property="ordNo" 			column="ord_no" 		nullValue="0"/>
+        <result property="ordPrdStat" 		column="ord_prd_stat" />
+        <result property="ordPrdStatTxt" 	column="ord_prd_stat_txt" />
+    </resultMap>
+
+	<resultMap id="searchcertSearchResult" class="cert.SomCertBO">
+    	<result property="num" 				column="num"/>
+    	<result property="shopNo" 			column="shop_no"/>
+    	<result property="shopNm" 			column="shop_nm"/>
+        <result property="shopBranchNo" 	column="shop_branch_no"	nullValue="0"/>
+        <result property="shopBranchNm" 	column="shop_branch_nm"	nullValue=""/>
+        <result property="prdNo" 			column="prd_no"/>
+        <result property="prdNm" 			column="prd_nm"/>
+        <result property="buyerNm" 			column="buyer_nm"/>
+        <result property="certStat" 		column="cert_stat"/>
+        <result property="cancelYn" 		column="cancelYn"/>
+        <result property="confirmYn" 		column="confirmYn"/>
+        <result property="certDt" 			column="cert_dt"		nullValue=""/>
+        <result property="certNo" 			column="cert_no"/>
+        <result property="smsTelNo" 		column="sms_tel_no"/>
+        <result property="useDt" 			column="use_dt"/>
+        <result property="totalCount" 		column="total_count"/>
+        <result property="ordNo" 			column="ord_no" 		nullValue="0"/>
+        <result property="ordPrdStat" 		column="ord_prd_stat" />
+        <result property="ordPrdStatTxt" 	column="ord_prd_stat_txt" />
+    </resultMap>
+
+	<resultMap id="managecertSearchResult" class="cert.SomCertBO">
+    	<result property="num" 				column="num"/>
+        <result property="prdNo" 			column="prd_no"/>
+        <result property="ordNo" 			column="ord_no" 		nullValue="0"/>
+        <result property="prdNm" 			column="prd_nm"/>
+    	<result property="shopNo" 			column="shop_no"/>
+    	<result property="shopNm" 			column="shop_nm"/>
+        <result property="shopBranchNo" 	column="shop_branch_no"	nullValue="0"/>
+        <result property="shopBranchNm" 	column="shop_branch_nm"	nullValue=""/>
+        <result property="buyerNm" 			column="buyer_nm"/>
+        <result property="certStat" 		column="cert_stat"/>
+        <result property="certDt" 			column="cert_dt" 		nullValue=""/>
+        <result property="certNo" 			column="cert_no"/>
+        <result property="smsTelNo" 		column="sms_tel_no"/>
+        <result property="useDt" 			column="use_dt"/>
+        <result property="autoRfndYn"  		column="auto_rfnd_yn"/>
+        <result property="totalCount" 		column="total_count"/>
+        <result property="ordPrdStatTxt" 	column="ord_prd_stat_txt" />
+    </resultMap>
+
+	<resultMap id="histSearchResult" class="cert.SomCertBO">
+    	<result property="histAplDt" 		column="hist_apl_dt"/>
+        <result property="certStat" 		column="cert_stat"/>
+        <result property="statDesc" 		column="stat_desc"				nullValue=""/>
+        <result property="certDt" 			column="cert_dt"				nullValue=""/>
+    	<result property="updateDt" 		column="update_dt"/>
+    	<result property="certConfirmorId" 	column="certConfirmorId"/>
+        <result property="totalCount" 		column="total_count"/>
+    </resultMap>
+
+	<resultMap id="outCertInfoResult" class="cert.SomCertBO">
+        <result property="certType" 		column="cert_type"/>
+        <result property="shopNo" 			column="shop_no"/>
+        <result property="certExprDt" 		column="cert_expr_dt"/>
+    </resultMap>
+
+	<resultMap id="certPrdNoInfoResult" class="cert.SomCertBO">
+        <result property="prdNo" 			column="prd_no"/>
+        <result property="certNo" 			column="cert_no"/>
+        <result property="certSpotNo" 		column="certSpotNo"/>
+        <result property="certStat" 		column="cert_stat"/>
+        <result property="prdTypCd" 		column="prd_typ_cd"/>
+        <result property="ordPrdStat" 		column="ord_prd_stat"/>
+    </resultMap>
+
+	<resultMap id="certPrdInfoResult" class="cert.ProductBO">
+        <result property="prdNo" 			column="prdNo"/>
+        <result property="selStatCd" 		column="selStatCd"/>
+        <result property="stckQty" 			column="stckQty"/>
+    </resultMap>
+
+    <resultMap id="certConfirmerInfoResult" class="cert.SomCertBO">
+        <result property="certSpotNo" 		column="certSpotNo"/>
+        <result property="userNo" 			column="userNo"/>
+    </resultMap>
+
+	<resultMap id="certNumStatInfoResult" class="cert.SomCertApiBO">
+        <result property="certStat" 		column="cert_stat"/>
+        <result property="sellerPrdCd" 		column="seller_prd_cd"	nullValue=""/>
+        <result property="ordNo" 			column="ord_no"/>
+        <result property="ordPrdSeq" 		column="ord_prd_seq"/>
+        <result property="certExprDt" 		column="cert_expr_dt"/>
+    </resultMap>
+
+    <!-- 사용자 정보 조회  -->
+    <select id="cert.select.user.info" resultClass="long"  parameterClass="string">
+    	/* selectCertDaoMap.xml id="cert.select.user.info" 이경택 2012.03.26 */
+    	SELECT mem_no
+    	FROM mb_mem
+    	WHERE mem_id = #memId#
+    </select>
+
+	<!-- 인증 확인 처리 가능 여부 조회 -->
+	<select id="cert.select.certnum.confirm" resultMap="certConfirmResult"  parameterClass="cert.SomCertBO">
+		/* selectCertDaoMap.xml id="cert.select.certnum.confirm" 이경택 2012.03.26 */
+		SELECT  CASE WHEN ROWNUM = 1 THEN CASE WHEN a.cert_stat = '101' AND a.cert_expr_dt <![CDATA[ >= ]]> SYSDATE AND a.ord_prd_stat IN ('501', '901') THEN 'Y' ELSE 'N' END
+                   ELSE 'N'
+                   END certYn,
+                   nvl(b.prd_no, -1) AS prdNo, nvl(b.prd_nm, '') AS prdNm, nvl(b.shop_no, -1) AS shopNo, a.cert_stat AS certStat, a.ord_prd_stat AS ordPrdStat,
+                   CASE WHEN a.cert_stat = '101' AND a.cert_expr_dt <![CDATA[ < ]]> SYSDATE THEN 'Y' ELSE 'N' END isCertDeadLine,
+                   a.sms_tel_no,
+                   CASE WHEN SYSDATE <![CDATA[ > ]]> TO_DATE(SYSDATE, 'YY/MM/DD') + 6/24 AND SYSDATE <![CDATA[ < ]]> TO_DATE(SYSDATE, 'YY/MM/DD') + 22/24 THEN ''
+			       WHEN SYSDATE <![CDATA[ >= ]]> TO_DATE(SYSDATE, 'YY/MM/DD') + 22/24 AND SYSDATE <![CDATA[ <= ]]> TO_DATE(SYSDATE, 'YY/MM/DD') + 0.99999 THEN TO_CHAR(TO_DATE(SYSDATE+1, 'YY/MM/DD') + 11/24, 'yyyy/mm/dd hh24:mi:ss')
+			       ELSE TO_CHAR(TO_DATE(SYSDATE, 'YY/MM/DD') + 11/24, 'yyyy/mm/dd hh24:mi:ss') END sendSMSTime,
+                   nvl(e.shop_nm, '') AS shop_nm
+		FROM   sm_cert a, pd_prd b, pd_town_shop_branch_comp c, dp_town_shop_branch d, dp_town_shop e
+		WHERE a.prd_no = b.prd_no
+		AND    b.prd_no = c.prd_no
+		AND    a.shop_no = b.shop_no
+		AND    b.shop_no = c.shop_no
+		AND    c.shop_no = d.shop_no
+		AND    d.shop_no = e.shop_no
+		AND    c.shop_branch_no = d.shop_branch_no
+		AND    a.prd_no = #prdNo#
+		AND    c.shop_branch_no = #certSpotNo#
+		AND    a.cert_no = #certNo#
+		AND    a.ord_prd_stat IN ('501', '601', '901')
+	</select>
+
+	<!-- 반품 거부건에 한해 인증 확인 처리 가능 여부 조회  -->
+	<select id="cert.select.certnum.confirmReject" resultMap="certConfirmResult"  parameterClass="cert.SomCertBO">
+		/* selectCertDaoMap.xml id="cert.select.certnum.confirm" 이경택 2012.03.26 */
+		SELECT  CASE WHEN ROWNUM = 1 THEN CASE WHEN a.cert_stat = '101' AND a.cert_expr_dt <![CDATA[ >= ]]> SYSDATE AND a.ord_prd_stat IN ('501', '601', '901') THEN 'Y' ELSE 'N' END
+                   ELSE 'N'
+                   END certYn,
+                   nvl(b.prd_no, -1) AS prdNo, nvl(b.prd_nm, '') AS prdNm, nvl(b.shop_no, -1) AS shopNo, a.cert_stat AS certStat, a.ord_prd_stat AS ordPrdStat,
+                   CASE WHEN a.cert_stat = '101' AND a.cert_expr_dt <![CDATA[ < ]]> SYSDATE THEN 'Y' ELSE 'N' END isCertDeadLine,
+                   a.sms_tel_no,
+                   CASE WHEN SYSDATE <![CDATA[ > ]]> TO_DATE(SYSDATE, 'YY/MM/DD') + 6/24 AND SYSDATE <![CDATA[ < ]]> TO_DATE(SYSDATE, 'YY/MM/DD') + 22/24 THEN ''
+			       WHEN SYSDATE <![CDATA[ >= ]]> TO_DATE(SYSDATE, 'YY/MM/DD') + 22/24 AND SYSDATE <![CDATA[ <= ]]> TO_DATE(SYSDATE, 'YY/MM/DD') + 0.99999 THEN TO_CHAR(TO_DATE(SYSDATE+1, 'YY/MM/DD') + 11/24, 'yyyy/mm/dd hh24:mi:ss')
+			       ELSE TO_CHAR(TO_DATE(SYSDATE, 'YY/MM/DD') + 11/24, 'yyyy/mm/dd hh24:mi:ss') END sendSMSTime,
+                   nvl(e.shop_nm, '') AS shop_nm
+		FROM   sm_cert a, pd_prd b, pd_town_shop_branch_comp c, dp_town_shop_branch d, dp_town_shop e
+		WHERE a.prd_no = b.prd_no
+		AND    b.prd_no = c.prd_no
+		AND    a.shop_no = b.shop_no
+		AND    b.shop_no = c.shop_no
+		AND    c.shop_no = d.shop_no
+		AND    d.shop_no = e.shop_no
+		AND    c.shop_branch_no = d.shop_branch_no
+		AND    a.prd_no = #prdNo#
+		AND    c.shop_branch_no = #certSpotNo#
+		AND    a.cert_no = #certNo#
+		AND    a.ord_prd_stat IN ('501', '601', '901')
+	</select>
+
+	<!-- 해당 인증번호 정보 조회 -->
+	<select id="cert.select.certnum.info" resultMap="certInfoResult"  parameterClass="cert.SomCertBO">
+		/* selectCertDaoMap.xml id="cert.select.certnum.info" 이경택 2012.03.26 */
+		SELECT 	CASE WHEN (a.cert_expr_dt <![CDATA[ >= ]]> SYSDATE AND a.ord_prd_stat <![CDATA[<> ]]> '601' AND a.cert_stat = '101') THEN 'Y' ELSE 'N' END confirmYn,
+				CASE WHEN (a.ord_prd_stat in ('501', '601', '901') AND a.cert_stat = '102') THEN 'Y' ELSE 'N' END cancelYn,
+				REGEXP_REPLACE(REGEXP_REPLACE(a.cert_no, '[^[:digit:]]'),'(^[[:digit:]]{4})([[:digit:]]{4})([[:digit:]]{4})','\1-\2-\3') cert_no,
+				a.cert_stat, NVL(TO_CHAR(a.cert_dt, 'yyyy/mm/dd hh24:mi:ss'), '') cert_dt, a.sms_tel_no,
+				CASE WHEN SYSDATE <![CDATA[ >  ]]> TO_DATE(SYSDATE, 'YY/MM/DD') + 6/24 AND SYSDATE <![CDATA[ <  ]]> TO_DATE(SYSDATE, 'YY/MM/DD') + 22/24 THEN ''
+			    WHEN SYSDATE <![CDATA[ >=  ]]> TO_DATE(SYSDATE, 'YY/MM/DD') + 22/24 AND SYSDATE <![CDATA[ <=  ]]> TO_DATE(SYSDATE, 'YY/MM/DD') + 0.99999 THEN TO_CHAR(TO_DATE(SYSDATE+1, 'YY/MM/DD') + 11/24, 'yyyy/mm/dd hh24:mi:ss')
+			    ELSE TO_CHAR(TO_DATE(SYSDATE, 'YY/MM/DD') + 11/24, 'yyyy/mm/dd hh24:mi:ss') END sendSMSTime,
+			    a.prd_no,
+			    nvl(b.prd_nm, '') AS prd_nm,
+                nvl(c.shop_nm, '') AS shop_nm,
+                CASE WHEN a.cert_stat = '101' AND a.cert_expr_dt <![CDATA[ < ]]> SYSDATE THEN 'Y' ELSE 'N' END isCertDeadLine,
+                b.seller_prd_cd
+		FROM sm_cert a, pd_prd b, dp_town_shop c
+		WHERE a.prd_no = b.prd_no
+		AND    a.shop_no = b.shop_no
+		AND    b.shop_no = c.shop_no
+		AND    a.cert_no = #certNo#
+		<isNotEmpty property="prdNo">
+			AND a.prd_no = #prdNo#
+		</isNotEmpty>
+		<isEqual property="searchType" compareValue="B">
+			AND a.cert_spot_no = #certSpotNo#
+		</isEqual>
+	</select>
+
+	<!-- 바로인증 조회 페이지에서 최근 인증처리한 최근 한달 이내 인증내역 조회 -->
+	<select id="cert.select.nowcert.search" resultMap="nowcertSearchResult"  parameterClass="cert.SomCertBO">
+		/* selectCertDaoMap.xml id="cert.select.nowcert.search" 이경택 2012.03.28 */
+	    SELECT /*+ leading(a b c d) index_asc(a IX5_SM_CERT) */
+	                c.shop_no, c.shop_nm, d.shop_branch_no, d.shop_branch_nm, b.prd_no, b.prd_nm,
+	                SUBSTR(a.buyer_nm, 0, 1)||'*'||SUBSTR(a.buyer_nm, 3) buyer_nm, a.cert_stat,
+                    CASE
+                		WHEN a.ord_prd_stat in ('202', '501', '901') and a.cert_stat = '102' THEN 'Y'
+                		ELSE 'N'
+            		END AS cancelYn,
+                    NVL(TO_CHAR(a.cert_dt, 'yyyy/mm/dd hh24:mi:ss'), '') cert_dt,
+                    a.cert_no as cert_no,
+                    REGEXP_REPLACE(REGEXP_REPLACE(a.sms_tel_no, '[^[:digit:]]'),'(^[[:digit:]]{3})([[:digit:]]{3,4})([[:digit:]]{4})','\1-\2-\3') sms_tel_no,
+	   			 rownum AS rnk,
+	   			 a.ord_no,
+	   			 (select DTLS_COM_NM from sy_co_detail where grp_CD='TR022' and DTLS_CD=a.ord_prd_stat) as ord_prd_stat_txt,
+	   			 a.ord_prd_stat
+	    FROM   sm_cert a, pd_prd b, dp_town_shop c, dp_town_shop_branch d
+	    WHERE a.prd_no = b.prd_no
+	    AND    a.shop_no = c.shop_no
+	    AND    a.cert_spot_no = d.shop_branch_no
+	    AND    a.cert_stat = '102'
+	    AND    a.cert_spot_no = #certSpotNo#
+		AND    A.CERT_DT <![CDATA[ > ]]> ADD_MONTHS(SYSDATE, -1)  /* 최근 1개월의 데이터 */
+	    <isNotEmpty property="ordPrdStat">
+	    AND    a.ord_prd_stat = #ordPrdStat#
+	    </isNotEmpty>
+	    <isEmpty property="ordPrdStat">
+	     AND    a.ord_prd_stat IN ('202', '501', '901', 'A01', 'C01')
+	    </isEmpty>
+
+	</select>
+
+	<!-- 조회인증 조회 페이지에서 이름&전화번호 뒤 4자리로 조회 or 인증번호로 조회 -->
+	<select id="cert.select.searchcert.search" resultMap="searchcertSearchResult"  parameterClass="cert.SomCertBO">
+		/* selectCertDaoMap.xml id="cert.select.searchcert.search" 이경택 2012.03.28 */
+		<isNotEmpty property="certSpotNo">
+			<isNotEqual property="certSpotNo" compareValue="0">
+			/* 지점번호 있을 시 */
+				SELECT *
+				FROM (
+					select
+					    aa.confirmYn, aa.cancelYn, aa.prd_no, aa.ord_no,
+					    (select DTLS_COM_NM from sy_co_detail where grp_CD='TR022' and DTLS_CD=aa.ord_prd_stat) as ord_prd_stat_txt,
+					    aa.ord_prd_stat, bb.prd_nm,
+					    CASE
+					        WHEN bb.town_lmt_clf_cd = '01'
+					        THEN bb.eftv_dy||'~'||bb.eftv_end_dy
+					        ELSE aa.buy_dt||'~'||(to_date(aa.buy_dt)+bb.use_mon+0.99999)
+						END use_dt,
+					    aa.buyer_nm, aa.sms_tel_no, aa.cert_no, aa.cert_stat, aa.shop_no, cc.shop_nm, dd.shop_branch_no, dd.shop_branch_nm, aa.cert_dt,
+					    rownum num, count(*) over() AS total_count
+					from (
+						 select
+					        <isEqual property="searchType" compareValue="name">
+					            /*+ leading(a b c d e) index_desc(a IX3_SM_CERT) */
+					        </isEqual>
+					        <isEqual property="searchType" compareValue="certNo">
+					            /*+ leading(a b c d e) index(a PK_SM_CERT) */
+					        </isEqual>
+					        a.shop_no, a.cert_spot_no, a.prd_no, a.cert_no, a.ord_no, a.ord_prd_stat, a.cert_stat, a.buy_dt,
+					        CASE WHEN (a.ord_prd_stat in ('202', '501', '901') AND a.cert_stat = '102') THEN 'Y' ELSE 'N' END cancelYn,
+					        CASE WHEN (a.cert_expr_dt  <![CDATA[ >= ]]>  SYSDATE AND a.ord_prd_stat <![CDATA[<> ]]> '601' AND a.cert_stat = '101') THEN 'Y' ELSE 'N' END confirmYn,
+					        SUBSTR(a.buyer_nm, 0, 1)||'*'||SUBSTR(a.buyer_nm, 3) buyer_nm,
+					        NVL(TO_CHAR(a.cert_dt, 'yyyy/mm/dd hh24:mi:ss'), '') cert_dt,
+					        REGEXP_REPLACE(REGEXP_REPLACE(a.sms_tel_no, '[^[:digit:]]'),'(^[[:digit:]]{3})([[:digit:]]{3,4})([[:digit:]]{4})','\1-\2-\3') sms_tel_no
+					    from
+					        sm_cert a, pd_town_shop_branch_comp b
+					    where 1=1
+					        and a.prd_no = b.prd_no
+					        and a.shop_no = b.shop_no
+					        and (a.cert_spot_no = b.shop_branch_no or a.cert_spot_no is null)
+					        and cert_stat IN ('101', '102')
+							<isNotEmpty property="shopNo" >
+								<isNotEqual property="shopNo" compareValue="0">
+								  AND b.shop_no = #shopNo#
+								 </isNotEqual>
+							</isNotEmpty>
+							<isNotEmpty property="certSpotNo" prepend="AND">
+								<isNotEqual property="certSpotNo" compareValue="0">
+									b.shop_branch_no = #certSpotNo#
+								</isNotEqual>
+							</isNotEmpty>
+							<isEqual property="searchType" compareValue="name">
+								<isNotEmpty property="buyerNm">
+									AND   a.buyer_nm = #buyerNm#
+								</isNotEmpty>
+								<isNotEmpty property="smsTelNo">
+									AND   SUBSTR(a.sms_tel_no, LENGTH(a.sms_tel_no)-3, 4) = #smsTelNo#
+								</isNotEmpty>
+							</isEqual>
+							<isEqual property="searchType" compareValue="certNo">
+								AND   a.cert_no = #certNo#
+							</isEqual>
+							<isNotEmpty property="ordType">
+								<isEqual property="ordType" compareValue="03" >
+									 AND a.ord_no = #ordTypeName#
+								</isEqual>
+							</isNotEmpty>
+							<isNotEmpty property="shDateType">
+								<isEqual property="shDateType" compareValue="02" >
+									 AND to_char(a.cert_dt, 'YYYY/MM/DD') <![CDATA[ >= ]]> #shDateFrom#
+									 AND to_char(a.cert_dt, 'YYYY/MM/DD') <![CDATA[ <= ]]> #shDateTo#
+								</isEqual>
+								<isEqual property="shDateType" compareValue="03" >
+									 AND to_char(a.buy_dt, 'YYYY/MM/DD') <![CDATA[ >= ]]> #shDateFrom#
+									 AND to_char(a.buy_dt, 'YYYY/MM/DD') <![CDATA[ <= ]]> #shDateTo#
+								</isEqual>
+							</isNotEmpty>
+							<isEmpty property="ordPrdStat">
+								AND ord_prd_stat IN ('202', '501', '901', 'A01', 'C01')
+							</isEmpty>
+							<isNotEmpty property="ordPrdStat">
+									AND ord_prd_stat = #ordPrdStat#
+							</isNotEmpty>
+						)aa, pd_prd bb, dp_town_shop cc, dp_town_shop_branch dd
+					where 1=1
+						and aa.prd_no = bb.prd_no
+					    and aa.shop_no = cc.shop_no
+					    and aa.CERT_SPOT_NO = dd.shop_branch_no(+)
+
+						AND rownum <![CDATA[ <= ]]> #end#
+					) x
+				WHERE num <![CDATA[ >= ]]> #start# AND num <![CDATA[ < ]]> #end#
+			</isNotEqual>
+			<isEqual property="certSpotNo" compareValue="0">
+				/* 지점번호 조회가 없을 시 */
+				SELECT *
+				FROM (
+					SELECT
+							<isEqual property="searchType" compareValue="name">
+								/*+ leading(a b c d e) index_desc(a IX3_SM_CERT) */
+							</isEqual>
+							 <isEqual property="searchType" compareValue="certNo">
+							 	/*+ leading(a b c d e) index(a PK_SM_CERT) */
+							 </isEqual>
+							rownum num, d.shop_no, d.shop_nm, e.shop_branch_no, a.ord_no, a.ord_prd_stat,
+							(select DTLS_COM_NM from sy_co_detail where grp_CD='TR022' and DTLS_CD=a.ord_prd_stat) as ord_prd_stat_txt,
+							e.shop_branch_nm, b.prd_no, b.prd_nm, SUBSTR(a.buyer_nm, 0, 1)||'*'||SUBSTR(a.buyer_nm, 3) buyer_nm, a.cert_stat,
+							CASE WHEN (a.ord_prd_stat in ('202', '501', '901') AND a.cert_stat = '102') THEN 'Y' ELSE 'N' END cancelYn,
+							CASE WHEN (a.cert_expr_dt <![CDATA[ >= ]]> SYSDATE AND a.ord_prd_stat <![CDATA[<> ]]> '601' AND a.cert_stat = '101') THEN 'Y' ELSE 'N' END confirmYn,
+							NVL(TO_CHAR(a.cert_dt, 'yyyy/mm/dd hh24:mi:ss'), '') cert_dt,
+							a.cert_no as cert_no,
+							REGEXP_REPLACE(REGEXP_REPLACE(a.sms_tel_no, '[^[:digit:]]'),'(^[[:digit:]]{3})([[:digit:]]{3,4})([[:digit:]]{4})','\1-\2-\3') sms_tel_no,
+							CASE WHEN b.town_lmt_clf_cd = '01' THEN b.eftv_dy||'~'||b.eftv_end_dy ELSE a.buy_dt||'~'||(to_date(a.buy_dt)+b.use_mon+0.99999)
+							END use_dt,
+							count(*) over() AS total_count
+					FROM   sm_cert a, pd_prd b, dp_town_shop d, dp_town_shop_branch e
+					WHERE a.prd_no = b.prd_no
+					AND   a.shop_no = b.shop_no
+					AND   a.shop_no = d.shop_no
+					AND   a.cert_spot_no = e.shop_branch_no(+)
+					<isNotEmpty property="shopNo">
+						<isNotEqual property="shopNo" compareValue="0">
+						 AND a.shop_no = #shopNo#
+						 </isNotEqual>
+					</isNotEmpty>
+					AND   a.cert_stat IN ('101', '102')
+					<isEqual property="searchType" compareValue="name">
+						<isNotEmpty property="buyerNm">
+							AND   a.buyer_nm = #buyerNm#
+						</isNotEmpty>
+						<isNotEmpty property="smsTelNo">
+							AND   SUBSTR(a.sms_tel_no, LENGTH(a.sms_tel_no)-3, 4) = #smsTelNo#
+						</isNotEmpty>
+					</isEqual>
+					<isEqual property="searchType" compareValue="certNo">
+						AND   a.cert_no = #certNo#
+					</isEqual>
+					<isNotEmpty property="ordType">
+						<isEqual property="ordType" compareValue="03" >
+							 AND a.ord_no = #ordTypeName#
+						</isEqual>
+					</isNotEmpty>
+					<isNotEmpty property="shDateType">
+						<isEqual property="shDateType" compareValue="02" >
+							 AND to_char(a.cert_dt, 'YYYY/MM/DD') <![CDATA[ >= ]]> #shDateFrom#
+							 AND to_char(a.cert_dt, 'YYYY/MM/DD') <![CDATA[ <= ]]> #shDateTo#
+						</isEqual>
+						<isEqual property="shDateType" compareValue="03" >
+							 AND to_char(a.buy_dt, 'YYYY/MM/DD') <![CDATA[ >= ]]> #shDateFrom#
+							 AND to_char(a.buy_dt, 'YYYY/MM/DD') <![CDATA[ <= ]]> #shDateTo#
+						</isEqual>
+					</isNotEmpty>
+					<isEmpty property="ordPrdStat">
+							AND ord_prd_stat IN ('202', '501', '901', 'A01', 'C01')
+						</isEmpty>
+						<isNotEmpty property="ordPrdStat">
+								AND ord_prd_stat = #ordPrdStat#
+						</isNotEmpty>
+					AND rownum <![CDATA[ <= ]]> #end#
+					) x
+				WHERE num <![CDATA[ >= ]]> #start# AND num <![CDATA[ < ]]> #end#
+			</isEqual>
+		</isNotEmpty>
+
+	</select>
+
+	<!-- BO인증관리 조회 페이지에서 필수조건(인증시각/인증번호/상품번호)+부가조건에 따라 인증정보 조회 -->
+	<select id="cert.select.managecert.search" resultMap="managecertSearchResult"  parameterClass="cert.SomCertBO">
+		/* selectCertDaoMap.xml id="cert.select.managecert.search" 이경택 2012.03.28 */
+		SELECT *
+		FROM (
+			SELECT
+					<isEqual property="conditionType" compareValue="1">
+						/*+ leading(a b c d) index_desc(a IX1_SM_CERT) */
+					</isEqual>
+					<isEqual property="conditionType" compareValue="2">
+						/*+ leading(a b c d) index_desc(a PK_SM_CERT) */
+					</isEqual>
+					<isEqual property="conditionType" compareValue="3">
+						/*+ leading(a b c d) kasc(a IX3_SM_CERT) */
+					</isEqual>
+					<isEqual property="conditionType" compareValue="4">
+						/*+ leading(a b c d) index_asc(a IX4_SM_CERT) */
+					</isEqual>
+					<isEqual property="conditionType" compareValue="5">
+						/*+ leading(a b c d) index_asc(a IX5_SM_CERT) */
+					</isEqual>
+					<isEqual property="conditionType" compareValue="6">
+						/*+ leading(a b c d) index_asc(a IX6_SM_CERT) */
+					</isEqual>
+			       rownum num, b.prd_no, a.ord_no, b.prd_nm, c.shop_no, c.shop_nm, NVL(d.shop_branch_no, '') shop_branch_no, NVL(d.shop_branch_nm, '') shop_branch_nm,
+			       (select DTLS_COM_NM from sy_co_detail where grp_CD='TR022' and DTLS_CD=a.ord_prd_stat) as ord_prd_stat_txt,
+			       SUBSTR(a.buyer_nm, 0, 1)||'*'||SUBSTR(a.buyer_nm, 3) buyer_nm, a.cert_stat,
+			        NVL(TO_CHAR(a.cert_dt, 'yyyy/mm/dd hh24:mi:ss'), '') cert_dt,
+			        DECODE (CERT_TYPE, '100', a.cert_no, SUBSTR(cert_no, 0, 5)||'******') cert_no,
+			        REGEXP_REPLACE(REGEXP_REPLACE(a.sms_tel_no, '[^[:digit:]]'),'(^[[:digit:]]{3})([[:digit:]]{3,4})([[:digit:]]{4})','\1-\2-\3') sms_tel_no,
+			        CASE WHEN b.town_lmt_clf_cd = '01' THEN TO_CHAR(b.eftv_dy, 'yyyy/mm/dd')||'~'||TO_CHAR(b.eftv_end_dy, 'yyyy/mm/dd') ELSE TO_CHAR(a.buy_dt, 'yyyy/mm/dd')||'~'||TO_CHAR((to_date(a.buy_dt)+b.use_mon+0.99999), 'yyyy/mm/dd')
+			        END use_dt,
+			        NVL((select AUTO_RFND_YN from sm_cert_mem_type where MEM_NO=a.SEL_MNBD_NO), 'Y') as auto_rfnd_yn,
+			        count(*) over() AS total_count
+			FROM   sm_cert a, pd_prd b, dp_town_shop c, dp_town_shop_branch d, pd_town_shop_branch_comp e
+			WHERE
+					a.prd_no 	= b.prd_no
+				AND a.shop_no 	= b.shop_no
+				AND b.shop_no 	= c.shop_no
+				AND a.prd_no 	= e.prd_no
+				AND e.shop_branch_no = d.shop_branch_no
+			<isNotEmpty property="prdNo">
+				<isNotEqual prepend="AND" property="prdNo" compareValue="0">
+				      a.prd_no = #prdNo#
+				</isNotEqual>
+				<isNotEmpty prepend="AND" property="prdNoList">
+				    <iterate prepend="" property="prdNoList" open="a.prd_no IN (" close=")" conjunction=",">
+				      #prdNoList[]#
+				    </iterate>
+				</isNotEmpty>
+			</isNotEmpty>
+			<isNotEqual prepend="AND" property="certDtS" compareValue="">
+				a.cert_dt <![CDATA[ >= ]]> TO_DATE(#certDtS#, 'yyyy/mm/dd hh24:mi:ss') AND a.cert_dt <![CDATA[ <= ]]> TO_DATE(#certDtE#, 'yyyy/mm/dd hh24:mi:ss')+0.99999
+			</isNotEqual>
+			<isNotEqual prepend="AND" property="certNo" compareValue="">
+				a.cert_no = #certNo#
+			</isNotEqual>
+			<isNotEqual prepend="AND" property="ordNo" compareValue="0">
+				a.ord_no = #ordNo#
+			</isNotEqual>
+			<isNotEqual prepend="AND" property="certStat" compareValue="">
+				a.cert_stat = #certStat#
+			</isNotEqual>
+			<isNotEqual prepend="AND" property="buyerNm" compareValue="">
+				a.buyer_nm = #buyerNm#
+			    AND   SUBSTR(a.sms_tel_no, LENGTH(a.sms_tel_no)-3, 4) = #smsTelNo#
+			</isNotEqual>
+			<isNotEqual prepend="AND" property="shopNo" compareValue="0">
+				c.shop_no = #shopNo#
+			</isNotEqual>
+			<isNotEqual prepend="AND" property="shopBranchNo" compareValue="0">
+				d.shop_branch_no = #shopBranchNo#
+			</isNotEqual>
+			<isNotEmpty property="ordPrdStat" prepend="AND">
+				a.ord_prd_stat = #ordPrdStat#
+			</isNotEmpty>
+			AND rownum <![CDATA[ <= ]]> #end#) x
+		WHERE num <![CDATA[ >= ]]> #start# AND num <![CDATA[ < ]]> #end#
+	</select>
+
+	<!-- 인증번호 내역 히스토리 조회 -->
+	<select id="cert.select.certno.history" resultMap="histSearchResult"  parameterClass="cert.SomCertBO">
+		/* selectCertDaoMap.xml id="cert.select.certno.history" 이경택 2012.03.28 */
+		SELECT x.*,  count(*) over() AS total_count
+		FROM   (SELECT /*+ index_desc(a PK_SM_CERT_HIST) */ a.hist_apl_dt,
+                         CASE WHEN a.cert_stat = '101' AND a.stat_desc IS NOT NULL THEN '103'
+			             ELSE a.cert_stat
+			             END cert_stat,
+			             NVL(stat_desc, '') AS stat_desc,
+			             NVL(TO_CHAR(a.cert_dt, 'yyyy/mm/dd hh24:mi:ss'), '') AS cert_dt,
+			             NVL(TO_CHAR(a.update_dt, 'yyyy/mm/dd hh24:mi:ss'), '') AS update_dt,
+			             CASE WHEN b.cert_type = '101' THEN (select emp_id from sy_emp where emp_no = a.update_no)
+			             ELSE (select mem_id from mb_mem where mem_no = a.update_no)
+			             END certConfirmorId
+			    FROM   sm_cert_hist a,
+			              sm_cert b
+			    WHERE  a.cert_no = b.cert_no
+		        AND    a.cert_no = #certNo#
+		        AND    a.cert_stat <![CDATA[ <> ]]> '103'
+		        AND    a.seller_cert_yn <![CDATA[ <> ]]> 'N'
+		        UNION
+				SELECT /*+ index_desc(a PK_SM_CERT_HIST) */ hist_apl_dt,
+		                       CASE
+		                         WHEN cert_stat = '101'
+		        AND    stat_desc IS NOT NULL THEN '103'
+		                         ELSE cert_stat
+		                       END cert_stat,
+		               NVL(stat_desc, '') AS stat_desc,
+		               NVL(TO_CHAR(a.cert_dt, 'yyyy/mm/dd hh24:mi:ss'), '') AS cert_dt,
+		               NVL(TO_CHAR(a.update_dt, 'yyyy/mm/dd hh24:mi:ss'), '') AS update_dt,
+		               b.shop_branch_cd certConfirmorId
+		        FROM   sm_cert_hist a,
+		               dp_town_shop_branch b
+		        WHERE  cert_no = #certNo#
+		        AND    cert_stat <![CDATA[ <> ]]> '103'
+		        AND    SELLER_CERT_YN = 'N'
+		        AND    a.update_no = b.shop_branch_no ) x
+		ORDER BY hist_apl_dt DESC
+	</select>
+
+	<!-- 인증번호 등록시 필요 내역 조회 -->
+	<select id="cert.select.out.certnum.info" resultMap="outCertInfoResult"  parameterClass="long">
+		/* selectCertDaoMap.xml id="cert.select.out.certnum.info" 이경택 2012.03.28 */
+		SELECT b.cert_type, a.shop_no,
+				 CASE WHEN a.town_lmt_clf_cd = '01' THEN TO_DATE(a.eftv_end_dy, 'yy/mm/dd hh24:mi:ss')+7.99999 ELSE TO_DATE('9999/12/31', 'yyyy/mm/dd')
+			     END cert_expr_dt
+		FROM pd_prd a, sm_cert_mem_type b
+		WHERE a.sel_mnbd_no = b.mem_no
+		AND a.prd_no = #prdNo#
+	</select>
+
+	<!-- 미인증 상품 내역 조회 -->
+	<select id="cert.select.nonCert.info" resultClass="cert.ProductCertBo"  parameterClass="cert.SomCertBO">
+		/* selectCertDaoMap.xml id="cert.select.nonCert.info" 이경택 2012.03.28 */
+		SELECT *
+		FROM (
+			SELECT rownum num,
+					a.shop_no AS shopNo,
+			       	a.ord_no AS ordNo,
+			       	c.prd_no AS prdNo,
+			       	c.prd_nm AS prdNm,
+			       	d.sel_prc AS selPrc,
+			       	b.ord_prd_won_stl AS ordPrdWonStl,
+			       	NVL(TO_CHAR(b.ord_dt, 'yyyy/mm/dd hh24:mi:ss'), '') AS ordDt,
+			       	FN_STL_MNS_NM(b.ord_no) AS stlNm,
+			       	a.buyer_nm AS buyerNm,
+			       	REGEXP_REPLACE(REGEXP_REPLACE(a.sms_tel_no, '[^[:digit:]]'),'(^[[:digit:]]{3})([[:digit:]]{3,4})([[:digit:]]{4})','\1-\2-\3') AS smsTelNo,
+			       	'미인증' AS certStat,
+			       	(SUBSTR(a.cert_no, 0, 5)||'******') cert_no,
+			       	count(*) over() AS totalCount
+			FROM   sm_cert a,
+			       tr_ord_prd b,
+			       pd_prd c,
+			       pd_prd_prc d
+			WHERE  a.ord_no = b.ord_no
+			AND    a.ord_prd_seq = b.ord_prd_seq
+			AND    a.prd_no = c.prd_no
+			AND    c.prd_no = d.prd_no
+			AND    a.cert_stat = '101'
+			AND    a.ord_prd_stat <![CDATA[ <> ]]> '901'
+			AND    a.shop_no = #shopNo#
+			AND    rownum <![CDATA[ <= ]]> #end#
+		) x
+		WHERE num <![CDATA[ >= ]]> #start# AND num <![CDATA[ < ]]> #end#
+	</select>
+
+	<!-- 해당 인증번호, 지점에 해당하는 상품번호 정보 조회 -->
+	<select id="cert.select.certnum.prdNo.info" resultMap="certPrdNoInfoResult"  parameterClass="cert.SomCertBO">
+		/* selectCertDaoMap.xml id="cert.select.certnum.prdNo.info" 이경택 2012.03.28 */
+		 SELECT a.prd_no, a.cert_no, b.shop_branch_no AS certSpotNo, a.cert_stat, c.prd_typ_cd, a.ord_prd_stat
+		 FROM sm_cert a, pd_town_shop_branch_comp b, pd_prd_svc_area c
+		 WHERE a.prd_no = b.prd_no
+		 AND b.prd_no = c.prd_no
+		 AND a.shop_no = b.shop_no
+		 AND c.svc_area_cd = '03'
+		 AND a.cert_no = #certNo#
+		 AND b.shop_branch_no = #certSpotNo#
+		 <isNotEqual property="prdNo" compareValue="0">
+		 	AND a.prd_no = #prdNo#
+		 </isNotEqual>
+	</select>
+
+	<!-- 상품 정보 조회 -->
+	<select id="cert.select.product.info" resultMap="certPrdInfoResult"  parameterClass="long">
+		/* selectCertDaoMap.xml id="cert.select.product.info" 이경택 2012.03.28 */
+		 SELECT prd_no AS prdNo, gnrl_sel_stat_cd AS selStatCd, gnrl_stck_qty AS stckQty
+		 FROM dp_gnrl_disp
+		 WHERE prd_no = #prdNo#
+	</select>
+
+	<!-- 해당 주문번호, 주문순번, 지점에 해당하는 상품번호 정보 조회 -->
+	<select id="cert.select.coopCertnum.prdNo.info" resultMap="certPrdNoInfoResult"  parameterClass="cert.SomCertBO">
+		/* selectCertDaoMap.xml id="cert.select.coopCertnum.prdNo.info" 이경택 2012.05.10 */
+		 SELECT a.prd_no, a.cert_no, b.shop_branch_no AS certSpotNo, a.cert_stat, c.prd_typ_cd, a.ord_prd_stat
+		 FROM sm_cert a, pd_town_shop_branch_comp b, pd_prd_svc_area c
+		 WHERE a.prd_no = b.prd_no
+		 AND b.prd_no = c.prd_no
+		 AND a.shop_no = b.shop_no
+		 AND c.svc_area_cd = '03'
+		 AND a.ord_no = #ordNo#
+		 AND a.ord_prd_seq = #ordPrdSeq#
+		 AND b.shop_branch_no = #certSpotNo#
+		 AND a.cert_type = '102'
+	</select>
+
+	<!-- 인증 확인 처리 가능 여부 조회 (주문번호, 주문순번으로 확인) -->
+	<select id="cert.select.coopCertnum.confirm" resultMap="certConfirmResult"  parameterClass="cert.SomCertBO">
+		/* selectCertDaoMap.xml id="cert.select.coopCertnum.confirm" 이경택 2012.03.26 */
+		SELECT  CASE WHEN ROWNUM = 1 THEN CASE WHEN a.cert_stat = '101' AND a.cert_expr_dt <![CDATA[ >= ]]> SYSDATE AND a.ord_prd_stat IN ('501', '901') THEN 'Y' ELSE 'N' END
+                   ELSE 'N'
+                   END certYn,
+                   nvl(b.prd_no, -1) AS prdNo, nvl(b.prd_nm, '') AS prdNm, nvl(b.shop_no, -1) AS shopNo, a.cert_stat AS certStat, a.ord_prd_stat AS ordPrdStat,
+                   CASE WHEN a.cert_stat = '101' AND a.cert_expr_dt <![CDATA[ < ]]> SYSDATE THEN 'Y' ELSE 'N' END isCertDeadLine,
+                   a.sms_tel_no,
+                   CASE WHEN SYSDATE <![CDATA[ > ]]> TO_DATE(SYSDATE, 'YY/MM/DD') + 6/24 AND SYSDATE <![CDATA[ < ]]> TO_DATE(SYSDATE, 'YY/MM/DD') + 22/24 THEN ''
+			       WHEN SYSDATE <![CDATA[ >= ]]> TO_DATE(SYSDATE, 'YY/MM/DD') + 22/24 AND SYSDATE <![CDATA[ <= ]]> TO_DATE(SYSDATE, 'YY/MM/DD') + 0.99999 THEN TO_CHAR(TO_DATE(SYSDATE+1, 'YY/MM/DD') + 11/24, 'yyyy/mm/dd hh24:mi:ss')
+			       ELSE TO_CHAR(TO_DATE(SYSDATE, 'YY/MM/DD') + 11/24, 'yyyy/mm/dd hh24:mi:ss') END sendSMSTime,
+                   nvl(e.shop_nm, '') AS shop_nm
+		FROM   sm_cert a, pd_prd b, pd_town_shop_branch_comp c, dp_town_shop_branch d, dp_town_shop e
+		WHERE a.prd_no = b.prd_no
+		AND    b.prd_no = c.prd_no
+		AND    a.shop_no = b.shop_no
+		AND    b.shop_no = c.shop_no
+		AND    c.shop_no = d.shop_no
+		AND    d.shop_no = e.shop_no
+		AND    c.shop_branch_no = d.shop_branch_no
+		AND    c.shop_branch_no = #certSpotNo#
+		AND    a.prd_no = #prdNo#
+		AND 	  a.ord_no = #ordNo#
+		AND    a.ord_prd_seq = #ordPrdSeq#
+		AND    a.ord_prd_stat IN ('501', '601', '901')
+		AND 	  a.cert_type = '102'
+	</select>
+
+	<!-- 모바일 인증내역 조회 페이지에서 이름&전화번호 뒤 4자리로 조회 or 인증번호 or 인증처리기간으로 조회 -->
+	<select id="cert.select.searchcert.breakdown" resultMap="searchcertSearchResult"  parameterClass="cert.SomCertBO">
+		/* selectCertDaoMap.xml id="cert.select.searchcert.breakdown" 이경택 2012.05.21 */
+		SELECT *
+		FROM (
+			SELECT
+					<isEqual property="searchType" compareValue="name">
+						/*+ leading(a b c d e) index_desc(a IX3_SM_CERT) */
+					</isEqual>
+					 <isEqual property="searchType" compareValue="certNo">
+					 	/*+ leading(a b c d e) index(a PK_SM_CERT) */
+					 </isEqual>
+					 <isEqual property="searchType" compareValue="">
+					 	/*+ leading(a b c d e) index_asc(a IX5_SM_CERT) */
+					 </isEqual>
+					rownum num, d.shop_no, d.shop_nm, a.ord_no, a.ord_prd_stat, e.shop_branch_no, e.shop_branch_nm, b.prd_no, b.prd_nm, SUBSTR(a.buyer_nm, 0, 1)||'*'||SUBSTR(a.buyer_nm, 3) buyer_nm, a.cert_stat,
+					CASE WHEN (a.cert_expr_dt <![CDATA[ >= ]]> SYSDATE AND a.ord_prd_stat <![CDATA[<> ]]> '901' AND a.cert_stat = '102') THEN 'Y' ELSE 'N' END cancelYn,
+					CASE WHEN (a.cert_expr_dt <![CDATA[ >= ]]> SYSDATE AND a.ord_prd_stat <![CDATA[<> ]]> '601' AND a.cert_stat = '101') THEN 'Y' ELSE 'N' END confirmYn,
+					NVL(TO_CHAR(a.cert_dt, 'yyyy/mm/dd hh24:mi:ss'), '') cert_dt,
+					a.cert_no as cert_no,
+					REGEXP_REPLACE(REGEXP_REPLACE(a.sms_tel_no, '[^[:digit:]]'),'(^[[:digit:]]{3})([[:digit:]]{3,4})([[:digit:]]{4})','\1-\2-\3') sms_tel_no,
+					CASE WHEN b.town_lmt_clf_cd = '01' THEN b.eftv_dy||'~'||b.eftv_end_dy ELSE a.buy_dt||'~'||(to_date(a.buy_dt)+b.use_mon+0.99999)
+					END use_dt,
+					count(*) over() AS total_count
+			FROM   sm_cert a, pd_prd b, pd_town_shop_branch_comp c, dp_town_shop d, dp_town_shop_branch e
+			WHERE a.prd_no = b.prd_no
+			AND   b.prd_no = c.prd_no
+			AND   a.shop_no = b.shop_no
+			AND   b.shop_no = c.shop_no
+			AND   c.shop_no = d.shop_no
+			AND   a.cert_spot_no = e.shop_branch_no(+)
+			AND   a.shop_no = #shopNo#
+			<isNotEqual property="certSpotNo" compareValue="0">
+				AND   c.shop_branch_no = #certSpotNo#
+			</isNotEqual>
+			AND   a.cert_stat = '102'
+			AND   a.ord_prd_stat IN ('501', '901')
+			AND   (a.cert_dt <![CDATA[ >= ]]> TO_DATE(#certDtS#, 'YYYY/MM/DD') AND a.cert_dt <![CDATA[ <= ]]> TO_DATE(#certDtE#, 'YYYY/MM/DD')+0.99999)
+			<isEqual property="searchType" compareValue="name">
+				AND   a.buyer_nm = #buyerNm#
+				AND   SUBSTR(a.sms_tel_no, LENGTH(a.sms_tel_no)-3, 4) = #smsTelNo#
+			</isEqual>
+			<isEqual property="searchType" compareValue="certNo">
+				AND   a.cert_no = #certNo#
+			</isEqual>
+			AND rownum <![CDATA[ <= ]]> #end#
+			) x
+		WHERE num <![CDATA[ >= ]]> #start# AND num <![CDATA[ < ]]> #end#
+	</select>
+
+	<!-- API로 내부 인증번호 확인/취소요청 지점, 사용자 정보 조회  -->
+    <select id="cert.select.confirmer.info" resultMap="certConfirmerInfoResult"  parameterClass="cert.SomCertBO">
+    	/* selectCertDaoMap.xml id="cert.select.confirmer.info" 이경택 2012.05.24 */
+    	SELECT c.shop_branch_no AS certSpotNo,  b.sel_mnbd_no AS userNo
+		FROM sm_cert a, pd_prd b, pd_town_shop_branch_comp c
+		WHERE a.prd_no = b.prd_no
+		AND b.prd_no = c.prd_no
+		AND a.shop_no = b.shop_no
+		AND b.shop_no = c.shop_no
+		AND a.cert_no = #certNo#
+		<isEqual property="searchType" compareValue="B">
+			AND c.shop_branch_no = #certSpotNo#
+		</isEqual>
+		AND rownum = 1
+    </select>
+
+	<!-- API로 외부 인증번호 확인/취소요청 지점, 사용자 정보 조회  -->
+    <select id="cert.select.external.confirmer.info" resultMap="certConfirmerInfoResult"  parameterClass="cert.SomCertBO">
+    	/* selectCertDaoMap.xml id="cert.select.external.confirmer.info" 이경택 2012.05.24 */
+    	SELECT c.shop_branch_no AS certSpotNo,  b.sel_mnbd_no AS userNo
+		FROM sm_cert a, pd_prd b, pd_town_shop_branch_comp c
+		WHERE a.prd_no = b.prd_no
+		AND b.prd_no = c.prd_no
+		AND a.shop_no = b.shop_no
+		AND b.shop_no = c.shop_no
+		AND a.ord_no = #ordNo#
+		AND a.ord_prd_seq = #ordPrdSeq#
+		<isEqual property="searchType" compareValue="B">
+			AND c.shop_branch_no = #certSpotNo#
+		</isEqual>
+		AND rownum = 1
+    </select>
+
+	<!-- 인증번호 상태조회 -->
+	<select id="cert.select.certnum.stat" resultMap="certNumStatInfoResult"  parameterClass="cert.SomCertApiBO">
+		/* selectCertDaoMap.xml id="cert.select.certnum.stat" 이호석 2012.12.07 */
+		SELECT (SELECT DTLS_COM_NM FROM sy_co_detail WHERE grp_cd = 'SM002' AND dtls_cd = a.cert_stat AND rownum = 1) AS cert_stat,
+			b.seller_prd_cd,
+			a.ord_no AS ord_no,
+			a.ord_prd_seq AS ord_prd_seq,
+			a.cert_expr_dt AS cert_expr_dt
+		FROM sm_cert a, pd_prd b
+		WHERE a.prd_no(+) = b.prd_no
+		AND a.cert_no = #certNo#
+	</select>
+
+</sqlMap>

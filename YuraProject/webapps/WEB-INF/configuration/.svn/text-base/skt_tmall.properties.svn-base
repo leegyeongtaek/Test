@@ -1,0 +1,24 @@
+#system name
+system.name=towncert
+
+#Mailing
+mailing.host=mail.11st.co.kr
+#system email from 
+mailing.from=leegt80.0@11st.co.kr
+#system email to admin
+mailing.to=leegt80@11st.co.kr
+
+#file upload
+repository.realdir=real
+repository.tempdir=temp
+repository.stagedir=uploadAfter
+repository.maxUploadSize=1000000000
+#viewer file path
+util.dir=util
+#excel file write
+excel.realdir=excelFile
+
+## For Tomcat JNDI Datasource Setting
+JNDI.DataSource.Name=DataSource
+#JNDI.DataSource.Value=java:/comp/env/TMALL_DS
+JNDI.DataSource.Value=TMALL_DS

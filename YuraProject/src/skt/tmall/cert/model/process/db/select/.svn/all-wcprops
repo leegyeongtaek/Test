@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/tmall_was/!svn/ver/194721/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select
+END
+SelectSearchCertSearch.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/tmall_was/!svn/ver/191755/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectSearchCertSearch.java
+END
+SelectManageCertSearch.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/tmall_was/!svn/ver/191755/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectManageCertSearch.java
+END
+SelectCertNumPrdNoInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/tmall_was/!svn/ver/194721/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectCertNumPrdNoInfo.java
+END
+SelectCoopCertNumConfirm.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svn/tmall_was/!svn/ver/161987/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectCoopCertNumConfirm.java
+END
+SelectNowCertSearch.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/tmall_was/!svn/ver/191755/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectNowCertSearch.java
+END
+SelectNonCertInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/tmall_was/!svn/ver/161987/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectNonCertInfo.java
+END
+SelectProductInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/tmall_was/!svn/ver/161987/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectProductInfo.java
+END
+SelectConfirmerInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/tmall_was/!svn/ver/163510/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectConfirmerInfo.java
+END
+SelectOutCertNumInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/tmall_was/!svn/ver/161987/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectOutCertNumInfo.java
+END
+SelectCertNumConfirm.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/tmall_was/!svn/ver/167487/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectCertNumConfirm.java
+END
+SelectCertNumStat.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/tmall_was/!svn/ver/193161/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectCertNumStat.java
+END
+SelectCertNumConfirmReject.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/tmall_was/!svn/ver/167487/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectCertNumConfirmReject.java
+END
+SelectCoopCertNumPrdNoInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/tmall_was/!svn/ver/187694/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectCoopCertNumPrdNoInfo.java
+END
+SelectUserInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/tmall_was/!svn/ver/161987/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectUserInfo.java
+END
+SelectCertNumInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/tmall_was/!svn/ver/163510/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectCertNumInfo.java
+END
+SelectExternalConfirmerInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/tmall_was/!svn/ver/163510/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectExternalConfirmerInfo.java
+END
+SelectCertNoHistory.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/tmall_was/!svn/ver/161987/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectCertNoHistory.java
+END
+SelectBreakdownCertSearch.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/tmall_was/!svn/ver/162430/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/process/db/select/SelectBreakdownCertSearch.java
+END

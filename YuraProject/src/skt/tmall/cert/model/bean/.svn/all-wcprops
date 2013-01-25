@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/tmall_was/!svn/ver/193226/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/bean
+END
+ProductCertBo.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/tmall_was/!svn/ver/157693/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/bean/ProductCertBo.java
+END
+ClientMessage.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/tmall_was/!svn/ver/179048/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/bean/ClientMessage.java
+END
+ProductBo.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/tmall_was/!svn/ver/160699/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/bean/ProductBo.java
+END
+ProductStockBo.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/tmall_was/!svn/ver/157279/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/bean/ProductStockBo.java
+END
+SomCertBO.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/tmall_was/!svn/ver/193162/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/bean/SomCertBO.java
+END
+SomCertApiBO.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/tmall_was/!svn/ver/193226/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/bean/SomCertApiBO.java
+END
+SomCertApiMessage.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/tmall_was/!svn/ver/193161/TownCert/trunk/22.tMallTownCertProject/src/skt/tmall/cert/model/bean/SomCertApiMessage.java
+END

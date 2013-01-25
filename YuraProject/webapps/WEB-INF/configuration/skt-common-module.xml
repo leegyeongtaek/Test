@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<!-- SMS 발송처리 성공 확인 checkable -->
+	<bean id="cert.CheckSendSMS" class="skt.tmall.common.model.process.check.CheckSendSMS" />
+	<bean id="cert.CheckSendSMSReject" class="skt.tmall.common.model.process.check.CheckSendSMSReject" />
+
+	<!-- SMS 전송 processGroup -->
+	<bean id="processGroup.cert.smsSend" class="skt.tmall.common.model.process.TransactionalProcessGroup">
+		<property name="processList">
+			<list>
+				<ref bean="common.select.selectTemplateSMSMessage" />
+				<ref bean="common.insert.insertSMSMessage" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- SMS 메세지 템플릿 검색 -->
+	<bean id="common.select.selectTemplateSMSMessage" class="skt.tmall.common.model.process.db.select.SelectTemplateSMSMessage" />
+	
+	<!-- SMS 발송 데이터 등록 -->
+	<bean id="common.insert.insertSMSMessage" class="skt.tmall.common.model.process.db.insert.InsertSMSMessage" />
+		
+</beans>

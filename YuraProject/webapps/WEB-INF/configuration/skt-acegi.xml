@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+	<!-- 필터 체인 프록시  -->
+	<bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
+		<property name="filterInvocationDefinitionSource">
+			<value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT
+				/**=httpSessionIntegrationFilter,basicProcessingFilter,exceptionTranslationFilter,filterSecurityInterceptor
+			</value>
+		</property>
+	</bean>
+	
+	<!-- 인증처리필터 (인증 요청인지를 판단하여 인증 요청이면 인증 관리자에게 전달한다.) -->
+	<bean id="basicProcessingFilter" class="skt.tmall.security.CertBasicProcessingFilter">
+		<property name="authenticationManager" ref="authenticationManager" />	<!-- 인증 관리자에서 인증에 성공하면 Authentication 객체는 추후의 참조를 위해 세션에 저장됨. -->
+		<property name="authenticationEntryPoint"  ref="authenticationEntryPoint" />
+	</bean>
+	
+	<!-- 인증처리필터 (인증 요청인지를 판단하여 인증 요청이면 인증 관리자에게 전달한다.) -->
+	<bean id="authenticationProcessingFilter" class="org.acegisecurity.ui.webapp.SiteminderAuthenticationProcessingFilter">
+		<property name="authenticationManager" ref="authenticationManager"/>	<!-- 인증 관리자에서 인증에 성공하면 Authentication 객체는 추후의 참조를 위해 세션에 저장됨. -->
+		<property name="authenticationFailureUrl" value="/accessLogin.jsp" />
+		<property name="defaultTargetUrl" value="/accessDefault.jsp" />
+		<property name="siteminderUsernameHeaderKey" value="memId" />
+		<property name="siteminderPasswordHeaderKey" value="passwd" />
+	</bean>
+	
+	<!-- 인증 시작점(인증예외발생시) -->
+	<!-- 
+	<bean id="authenticationEntryPoint" class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+		<property name="loginFormUrl">
+			<value>/accessLogin.jsp</value>
+		</property>
+		<property name="forceHttps">
+			<value>false</value>
+		</property>
+	</bean>
+	 -->
+	
+	<!-- Entry point -->
+	<bean id="authenticationEntryPoint" class="skt.tmall.security.CertProcesssingFilterEntryPoint">
+		<property name="realmName">
+			<value>myrealm</value>
+		</property>
+	</bean>
+	
+	<!-- 인증 관리자 -->
+	<bean id="authenticationManager" class="org.acegisecurity.providers.ProviderManager">
+		<property name="providers">
+			<list>
+				<ref bean="authenticationProvider"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 인증 공급자 -->
+	<bean id="authenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="authenticationDao"/>
+	<!-- <property name="passwordEncoder" ref="passwordEncoder"/>
+		<property name="saltSource" ref="saltSource"/> -->
+	</bean>
+
+	<!-- 인증 JDBC DAO -->
+	<bean id="authenticationDao" class="skt.tmall.security.JdbcDaoOverImpl">
+		<property name="dataSource" ref="defaultDataSource"/>
+		<property name="usersByUsernameQuery" value="${usersByUsernameQuery.authentication}" />
+		<property name="authoritiesByUsernameQuery" value="${authoritiesByUsernameQuery.authority}" />
+		<property name="rolePrefix">
+			<value>ROLE_</value>
+		</property>
+	</bean>
+	
+	<!-- 인코더 -->
+	<bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.Md5PasswordEncoder"/>
+	
+	<!-- 솔트 -->
+	<bean id="saltSource" class="org.acegisecurity.providers.dao.salt.SystemWideSaltSource">
+		<property name="systemWideSalt">
+			<value>123XYZ</value>
+		</property>
+	</bean>
+
+	
+	<!-- 통합필터(Security Context 담기): 세션으로 부터 사용자의 인증 정보(Authentication 객체)를 얻고 그 인증 정보를 ContextHolder에 담는다. (ThreadLocal) -->
+	<bean id="httpSessionIntegrationFilter" class="org.acegisecurity.context.HttpSessionContextIntegrationFilter"/>
+
+	
+	<!-- 예외처리필터 -->
+	<bean id="exceptionTranslationFilter" class="org.acegisecurity.ui.ExceptionTranslationFilter">
+		<property name="authenticationEntryPoint" ref="authenticationEntryPoint"/>
+		<property name="accessDeniedHandler" ref="accessDeniedHandler"/>
+	</bean>
+	
+	<!-- 권한 예외 -->
+	<bean id="accessDeniedHandler" class="org.acegisecurity.ui.AccessDeniedHandlerImpl">
+		<property name="errorPage">
+			<value>/accessDenied.jsp</value>
+		</property>
+	</bean>
+	
+	<!-- 보안 강제 필터 (필터 보안 인터셉터) -->
+	<!-- ex)/document/select/**=ROLE_ADMIN,ROLE_DOC -->
+	<bean id="filterSecurityInterceptor" class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+		<property name="authenticationManager" ref="authenticationManager"/>	<!-- 인증 관리자 -->
+		<property name="accessDecisionManager" ref="accessDecisionManager"/>	<!-- 접근 권한 관리자 -->
+		<property name="objectDefinitionSource">	<!-- 아래 패턴은 보안 인터셉터에게 요청되는 다양한 요청들에 있어서 요구되는 권한들이 무엇인지를 알려준다. -->
+			<value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT
+				/cert/select/**=ROLE_TOWN
+				/cert/update/**=ROLE_TOWN
+				/certapi/update/**=ROLE_TOWN
+			</value>
+		</property>
+	</bean>
+
+	<!-- 권한 접근 제어 -->
+	<bean id="accessDecisionManager" class="org.acegisecurity.vote.AffirmativeBased">
+		<property name="decisionVoters">
+			<list>
+				<ref bean="roleVoter"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 투표자 -->
+	<bean id="roleVoter" class="org.acegisecurity.vote.RoleVoter">
+		<property name="rolePrefix">
+			<value>ROLE_</value>
+		</property>
+	</bean>
+	
+	<!-- 인증 캐쉬 -->
+	<!-- 
+	<bean id="userCache" class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
+		<property name="cache"><ref local="userCacheBackend"/></property>
+	</bean>
+	 -->
+	
+	<!-- 캐쉬 팩토리 -->
+	<!-- 
+	<bean id="userCacheBackend" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheManager">
+			<ref local="cacheManager"/>
+		</property>
+		<property name="cacheName">
+			<value>userCache</value>
+		</property>
+	</bean>
+	 -->
+	
+	<!-- 캐쉬 매니져 -->
+	<!-- 
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation">
+		  <value>classpath:/ehcache.xml</value>
+		</property>
+	</bean>
+	 -->
+</beans>

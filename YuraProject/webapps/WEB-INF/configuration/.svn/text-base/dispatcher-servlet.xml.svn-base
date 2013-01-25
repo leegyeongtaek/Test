@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+    
+    <!-- Handler Mapping -->
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="alwaysUseFullPath" value="true" />
+        <property name="urlMap">
+            <map>
+            	<entry key="/cert/select/**"			value-ref="cert.selectControl" />
+            	<entry key="/cert/update/**"			value-ref="cert.updateControl" />
+            	<entry key="/certapi/update/**"		value-ref="cert.updateApiControl" />
+            	<entry key="/cert/insert/**"			value-ref="cert.insertControl" />
+            	<entry key="/certapi/select/**"			value-ref="cert.selectAPIControl" />
+            </map>
+        </property>
+    </bean>
+    
+    <!-- MethodNameResolver -->
+    <bean id="internalPathMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver"/>
+    
+    <!-- ViewResolver -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="contentType" value="text/html; charset=utf-8" />
+        <property name="suffix" value=".jsp" />
+        <property name="cache" value="true" />
+    </bean>
+    
+    <!-- Default Controller -->
+    <bean id="defaultWebHandler" abstract="true" class="skt.tmall.common.web.WebDefaultHandler">
+        <property name="methodNameResolver">
+            <ref bean="internalPathMethodNameResolver" />
+        </property>
+    </bean>
+    
+    <!-- Controllers -->
+    <!-- cert -->
+    <bean id="cert.selectControl" parent="defaultWebHandler">
+    	<property name="delegate" ref="cert.selectDelegate"/>
+    </bean>
+    <bean id="cert.updateControl" parent="defaultWebHandler">
+    	<property name="delegate" ref="cert.updateDelegate"/>
+    </bean>
+    <bean id="cert.updateApiControl" parent="defaultWebHandler">
+    	<property name="delegate" ref="cert.updateApiDelegate"/>
+    </bean>
+    <bean id="cert.insertControl" parent="defaultWebHandler">
+    	<property name="delegate" ref="cert.insertDelegate"/>
+    </bean>
+    <bean id="cert.selectAPIControl" parent="defaultWebHandler">
+    	<property name="delegate" ref="cert.selectAPIDelegate"/>
+    </bean>
+    
+      <!-- main -->
+    <!-- 
+    <bean id="product.selectControl" parent="defaultWebHandler">
+    	<property name="delegate" ref="product.selectDelegate"/>
+    	<property name="redirectUrlMap">
+    		<map>
+    			<entry key="test2" value="/jsp/product/test.jsp" />
+    			<entry key="test4" value="/jsp/product/test2.jsp" />
+    		</map>
+    	</property>
+    </bean>
+     -->
+    
+</beans>

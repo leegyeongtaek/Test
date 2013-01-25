@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="EUC-KR" standalone="no"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+	<settings lazyLoadingEnabled="true" cacheModelsEnabled="true"
+		enhancementEnabled="true" useStatementNamespaces="false" maxRequests="512"
+		maxSessions="128" maxTransactions="64" />
+
+	<sqlMap resource="skt/tmall/common/model/xml/insertCommonDaoMap.xml" />
+	<sqlMap resource="skt/tmall/common/model/xml/selectCommonDaoMap.xml" />
+	
+	<sqlMap resource="skt/tmall/cert/model/xml/insertCertDaoMap.xml" />
+	<sqlMap resource="skt/tmall/cert/model/xml/selectCertDaoMap.xml" />
+	<sqlMap resource="skt/tmall/cert/model/xml/updateCertDaoMap.xml" />
+	
+</sqlMapConfig>
